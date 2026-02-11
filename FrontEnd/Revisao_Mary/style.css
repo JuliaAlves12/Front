@@ -1,0 +1,147 @@
+:root {
+    --creme: #EAF2EF;
+    --rosa-claro: #efa9ae;
+    --rosa-escuro: #d48a8f; 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--rosa-claro);
+    color: #333; 
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--rosa-claro);
+    padding: 30px;
+    text-align: center;
+    border-right: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.perfil {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 4px solid var(--creme);
+}
+
+.sidebar p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+.redes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.redes img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.redes img:hover {
+    transform: translateY(-3px);
+}
+
+nav {
+    margin-top: 30px;
+}
+
+nav a {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    background: var(--creme);
+    color: var(--rosa-escuro);
+}
+
+main {
+    margin-left: 260px;
+    padding: 60px 40px;
+    max-width: 900px; 
+    margin-right: auto;
+}
+
+.topo {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.topo h1 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.topo p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #444;
+}
+
+.card {
+    background: var(--creme);
+    padding: 40px; 
+    border-radius: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.card img {
+    width: 220px;
+    height: auto;
+    margin: 10px 0 25px 0;
+    border-radius: 20px;
+}
+
+.card p {
+    max-width: 600px; 
+    line-height: 1.8; 
+    text-align: center; 
+    color: #555;
+    font-size: 1.05em;
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    background: var(--creme);
+    border-radius: 30px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
