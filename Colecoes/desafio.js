@@ -1,46 +1,46 @@
-// // Desenvolva um programa que a partir de um vetor de inteiros com 5 valores inicializados na declaração apresente o dobro de cada valor armazenado.
+// Desenvolva um programa que a partir de um vetor de inteiros com 5 valores inicializados na declaração apresente o dobro de cada valor armazenado.
 
-// let listaItens = [10,20,30,40,50]
+let listaItens = [10,20,30,40,50]
 
-// for (let dobro of listaItens){
-//     console.log(dobro*2)
-// }
-
-
-// // Desenvolva um programa que a partir de um vetor de inteiros com 8 valores inicializados na declaração apresente a média aritméticas desses valores.
-
-// let listaInteiros = [1,2,3,4,5,6,7,8]
-
-// let soma = 0
-
-// for (let n of listaInteiros){
-//     soma = soma + n
-// }
-
-// let mediaArit = soma / listaInteiros.length
-
-// console.log(mediaArit)
+for (let dobro of listaItens){
+    console.log(dobro*2)
+}
 
 
-// // Desenvolva um programa que leia a idade de 20 pessoas e apresente as idades acima da média.
+// Desenvolva um programa que a partir de um vetor de inteiros com 8 valores inicializados na declaração apresente a média aritméticas desses valores.
 
-// let listaIdades = [15, 20, 30, 10, 45, 50, 12, 18, 25, 33, 40, 22, 28, 35, 60, 14, 19, 21, 55, 17]
+let listaInteiros = [1,2,3,4,5,6,7,8]
 
-// let somaIdades = 0
+let soma = 0
 
-// for (let idades20 of listaIdades){
-//     somaIdades = somaIdades + idades20;
-// }
+for (let n of listaInteiros){
+    soma = soma + n
+}
 
-// let mediaIdades = somaIdades / listaIdades.length
+let mediaArit = soma / listaInteiros.length
 
-// console.log(`A média é: ${mediaIdades}`)
-// console.log("Idades maiores que a média das idades: ")
+console.log(mediaArit)
 
-// for (let idadesMaior of listaIdades){
-//     if (idadesMaior > mediaIdades)
-//         console.log(idadesMaior)
-// }
+
+// Desenvolva um programa que leia a idade de 20 pessoas e apresente as idades acima da média.
+
+let listaIdades = [15, 20, 30, 10, 45, 50, 12, 18, 25, 33, 40, 22, 28, 35, 60, 14, 19, 21, 55, 17]
+
+let somaIdades = 0
+
+for (let idades20 of listaIdades){
+    somaIdades = somaIdades + idades20;
+}
+
+let mediaIdades = somaIdades / listaIdades.length
+
+console.log(`A média é: ${mediaIdades}`)
+console.log("Idades maiores que a média das idades: ")
+
+for (let idadesMaior of listaIdades){
+    if (idadesMaior > mediaIdades)
+        console.log(idadesMaior)
+}
 
 
 // Desenvolva um programa que leia 10 números e apresente os valores pares. Caso não tenha nenhum número par apresente a mensagem “Todos os números são ímpares.”
