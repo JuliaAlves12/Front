@@ -9,4 +9,14 @@ for (let dobro of listaItens){
 
 // Desenvolva um programa que a partir de um vetor de inteiros com 8 valores inicializados na declaração apresente a média aritméticas desses valores.
 
-let lista
+let listaInteiros = [1,2,3,4,5,6,7,8]
+
+let soma = 0
+
+for (let n of listaInteiros){
+    soma += n
+}
+
+let mediaArit = soma / listaInteiros.length
+
+console.log(media)
