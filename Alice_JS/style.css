@@ -1,9 +1,11 @@
 :root {
-    --branco-azulado: #F0F8FF;
-    --azul-claro: #3C91E6;
-    --verde: #7DCEA0;
-    --amarelo: #FFC300;
-    --vermelho: #89023E;
+  --azul-alice: #4A90E2;        
+  --azul-claro: #A7C7E7;        
+  --branco: #F5F5F5;            
+  --rosa: #F78FB3;              
+  --verde: #6FCF97;             
+  --dourado: #F2C94C;           
+  --roxo: #9B51E0;              
 }
 
 *{
@@ -11,12 +13,52 @@
     padding: 0;
 }
 
-.fundo {
-    color: --;
+body {
+  background: linear-gradient(to bottom, var(--azul-claro), var(--branco));
+  color: #000;
+  font-family: Arial, sans-serif;
 }
 
-.poster {
-    position: relative;
-    width: 100%;
-    top: -150px;
+/* Header */
+.header {
+  text-align: center;
+}
+
+.titulo {
+  color: var(--roxo);
+}
+
+.subtitulo {
+  color: var(--azul-alice);
+}
+
+/* Texto */
+.texto {
+  margin: 15px;
+}
+
+/* Inputs */
+.input {
+  padding: 5px;
+  border: 1px solid var(--azul-alice);
+  border-radius: 5px;
+}
+
+/* Botões */
+.botao {
+  background-color: var(--rosa);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background-color: var(--roxo);
+}
+
+/* Destaques */
+.destaque {
+  color: var(--dourado);
 }
