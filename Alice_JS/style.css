@@ -1,0 +1,22 @@
+:root {
+    --branco-azulado: #F0F8FF;
+    --azul-claro: #3C91E6;
+    --verde: #7DCEA0;
+    --amarelo: #FFC300;
+    --vermelho: #89023E;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.fundo {
+    color: --;
+}
+
+.poster {
+    position: relative;
+    width: 100%;
+    top: -150px;
+}
