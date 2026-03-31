@@ -1,0 +1,21 @@
+import Cabecalho from "./components/Cabecalho";
+import Descricao from "./components/Descricao";
+import Hobbies from "./components/Hobbies";
+import PorqueGosto from "./components/PorqueGosto";
+
+function App(){
+
+  return (
+    <>
+      <Cabecalho />
+      <main>
+        <Descricao />
+        <Hobbies />
+        <PorqueGosto />
+      </main>
+    </>
+  )
+
+}
+
+export default App;
