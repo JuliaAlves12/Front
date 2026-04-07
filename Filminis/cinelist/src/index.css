@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Erica+One&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap%27');
+
+
+:root{
+  --bg: #1A0A0E;
+  --cards: #2D1218;
+  --titulo: #FFC2D1;
+  --fonte-body: #FB6F92;
+  --botoes: #C9184A;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+body{
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--fonte-body);
+  font-family: "Zain", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+ 
+h1, h2, h3{
+  font-family: "Erica One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
