@@ -2,11 +2,13 @@
 
 
 :root{
-  --bg: #1A0A0E;
-  --cards: #2D1218;
-  --titulo: #FFC2D1;
-  --fonte-body: #FB6F92;
-  --botoes: #C9184A;
+  --bg: #08040f;
+  --superficie-cards: #1A0E23;
+  --primary: #9D4EDD;
+  --brilhos: #B57BFF;
+  --txt-destacado: #D8C4FF;
+  --txt-principal: #F5F0FF;
+  --txt-secundario: #A89BB8;
 }
 
 *{
@@ -18,7 +20,7 @@
 body{
   background: var(--bg);
   min-height: 100vh;
-  color: var(--fonte-body);
+  color: var(--txt-principal);
   font-family: "Zain", sans-serif;
   font-weight: 400;
   font-style: normal;
