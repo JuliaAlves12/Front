@@ -1,0 +1,51 @@
+.status {
+    text-align: center;
+    font-size: 18px;
+}
+
+.status.error {
+    color: var(--error);
+}
+
+.filme-section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--txt-destacado);
+}
+
+.filme-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+}
+
+.filme-card {
+    padding: 10px;
+    background-color: var(superficie-cards);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 2px 2px 20px #36173f;
+    transform: translateY(8);
+    transition: transform 0.3s, box-shadow 0.3s ease;
+}
+
+.filme-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px var(--brilhos);
+}
+
+.filme-card img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+}
+
+.filme-info {
+    padding: 18px;
+}
+
+.filme-info h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: var(--txt-principal);
+}

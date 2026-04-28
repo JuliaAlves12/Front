@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Erica+One&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap');
 
-
-:root{
+:root {
   --bg: #08040f;
   --superficie-cards: #1A0E23;
   --primary: #9D4EDD;
@@ -9,25 +8,32 @@
   --txt-destacado: #D8C4FF;
   --txt-principal: #F5F0FF;
   --txt-secundario: #A89BB8;
+  --error: #9b0202;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
- 
-body{
+
+body {
   background: var(--bg);
   min-height: 100vh;
   color: var(--txt-principal);
-  font-family: "Zain", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 400;
-  font-style: normal;
 }
- 
-h1, h2, h3{
-  font-family: "Erica One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+h1 {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
