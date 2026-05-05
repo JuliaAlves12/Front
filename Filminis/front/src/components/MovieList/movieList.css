@@ -49,3 +49,12 @@
     margin-bottom: 8px;
     color: var(--txt-principal);
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}

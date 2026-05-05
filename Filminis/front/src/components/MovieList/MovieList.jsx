@@ -39,7 +39,7 @@ export default function MovieList() {
                 {filmes.map((film) => (
                     <article className="filme-card" key={film.id}>
                         <Link to={`/filme?id=${film.id}`}>
-                            <img src={film.imagem} alt={`Poster do filme ${filmes.titulo}`} />
+                            <img src={film.imagem} alt={`Poster do filme ${film.titulo}`} />
                             <div className="filme-info">
                                 <h3>{film.titulo}</h3>
                                 <p>{film.ano}</p>

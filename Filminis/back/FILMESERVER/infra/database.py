@@ -1,14 +1,16 @@
-import mysql.connector
+import mysql.connector, json
 from infra.query import *
-
 
 def get_connection():
     return mysql.connector.connect(
-        host="localhost", user="root", password="root", database="filme_mari"
+        host="localhost",
+        user="root",
+        password="root",
+        database="filme_mari",
+        auth_plugin='mysql_native_password'
     )
 
-
-def split_info(campo, sep=" | ", sub_sep=" — ", keys=("nome", "genero")):
+def split_info(campo, sep=' | ', sub_sep=' — ', keys=('nome', 'genero')):
     if not campo:
         return []
     partes = campo.split(sep)
@@ -20,7 +22,6 @@ def split_info(campo, sep=" | ", sub_sep=" — ", keys=("nome", "genero")):
         else:
             resultado.append({"valor": parte.strip()})
     return resultado
-
 
 def loadFilminhos():
     db = get_connection()
@@ -37,13 +38,14 @@ def loadFilminhos():
             "categoria_id": item[2],
             "orcamento": float(item[3]),
             "duracao": str(item[4]),
-            "ano": item[5],
-            "imagem": item[6],
+            "sinopse":item[5],
+            "ano": item[6],
+            "imagem": item[7],
+            "flag":item[8]
         }
         for item in results
     ]
     return filmes
-
 
 def insertFilminhos(
     nome,
@@ -56,8 +58,10 @@ def insertFilminhos(
     paises,
     orcamento,
     duracao,
+    sinopse,
     ano,
     poster,
+    flag
 ):
     db = get_connection()
     cursor = db.cursor()
@@ -65,56 +69,64 @@ def insertFilminhos(
     cursor.execute(
         """
         INSERT INTO filme
-        (titulo, id_produtora_principal, orcamento, duracao, ano, poster)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        (titulo, id_produtora_principal, orcamento, duracao, sinopse, ano, poster, flag)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """,
-        (nome, produtora_principal, orcamento, duracao, ano, poster),
+        (nome, produtora_principal, orcamento, duracao, sinopse, ano, poster, flag)
     )
+
 
     id_filme = cursor.lastrowid
 
     for id_produtora in produtoras:
         cursor.execute(
             "INSERT INTO filme_produtora (id_filme, id_produtora) VALUES (%s, %s)",
-            (id_filme, id_produtora),
+            (id_filme, id_produtora)
         )
+
 
     for id_categoria in categorias:
         cursor.execute(
             "INSERT INTO filme_categoria (id_filme, id_categoria) VALUES (%s, %s)",
-            (id_filme, id_categoria),
+            (id_filme, id_categoria)
         )
+
 
     for id_ator in atores:
         cursor.execute(
             "INSERT INTO filme_ator (id_filme, id_ator) VALUES (%s, %s)",
-            (id_filme, id_ator),
+            (id_filme, id_ator)
         )
+
 
     for id_diretor in diretores:
         cursor.execute(
             "INSERT INTO filme_diretor (id_filme, id_diretor) VALUES (%s, %s)",
-            (id_filme, id_diretor),
+            (id_filme, id_diretor)
         )
+
 
     for id_linguagem in linguagens:
         cursor.execute(
             "INSERT INTO filme_linguagem (id_filme, id_linguagem) VALUES (%s, %s)",
-            (id_filme, id_linguagem),
+            (id_filme, id_linguagem)
         )
+
 
     for id_pais in paises:
         cursor.execute(
             "INSERT INTO filme_pais (id_filme, id_pais) VALUES (%s, %s)",
-            (id_filme, id_pais),
+            (id_filme, id_pais)
         )
 
     db.commit()
     cursor.close()
     db.close()
 
-    return {"message": "Filme inserido com sucesso", "id_filme": id_filme}
-
+    return {
+        "message": "Filme inserido com sucesso",
+        "id_filme": id_filme
+    }
 
 def loadFilmini(id):
     print(id)
@@ -124,45 +136,43 @@ def loadFilmini(id):
     item = cursor.fetchone()
 
     if item:
-        filme = {
-            "id": item[0],
-            "titulo": item[1],
-            "ano": item[2],
-            "duracao": str(item[3]),
-            "orcamento": float(item[4]),
-            "poster": item[5],
-            "produtora_principal": item[6],
-            "produtoras": split_info(
-                item[7], sep=" | ", sub_sep=" — ", keys=("nome", "paises")
-            ),
-            "categorias": (
-                [cat.strip() for cat in item[8].split(",")] if item[8] else []
-            ),
-            "linguagens": (
-                [lang.strip() for lang in item[9].split(",")] if item[9] else []
-            ),
-            "diretores": split_info(
-                item[10], sep=" | ", sub_sep=" — ", keys=("nome", "genero", "paises")
-            ),  # keys=('nome', 'genero', 'paises'))
-            "atores": split_info(
-                item[11], sep=" | ", sub_sep=" — ", keys=("nome", "genero", "paises")
-            ),  # keys=('nome', 'genero', 'paises'))
-        }
-        return filme
+            filme = {
+                "id": item[0],
+                "titulo": item[1],
+                "ano": item[2],
+                "duracao": str(item[3]),
+                "sinopse":item[4],
+                "orcamento": float(item[5]),
+                "flag":item[6],
+                "poster": item[7],
+                "produtora_principal": item[8],
+                "produtoras": split_info(item[9], sep=' | ', sub_sep=' — ', keys=('nome', 'paises')),
+                "categorias": [cat.strip() for cat in item[10].split(',')] if item[10] else [],
+                "linguagens": [lang.strip() for lang in item[11].split(',')] if item[11] else [],
+                "diretores": split_info(item[12], sep=' | ', sub_sep=' — ', keys=('nome', 'genero', 'paises')), #keys=('nome', 'genero', 'paises'))
+                "atores": split_info(item[13], sep=' | ', sub_sep=' — ', keys=('nome', 'genero', 'paises')) #keys=('nome', 'genero', 'paises'))
+            }
+            return filme
     else:
         return None
+
 
 
 def deleteFilminho(id_filme):
     db = get_connection()
     cursor = db.cursor()
 
-    cursor.execute("SELECT id_filme FROM filme WHERE id_filme = %s", (id_filme,))
+
+    cursor.execute(
+        "SELECT id_filme FROM filme WHERE id_filme = %s",
+        (id_filme,)
+    )
 
     if not cursor.fetchone():
         cursor.close()
         db.close()
         return None
+
 
     cursor.execute("DELETE FROM filme_ator WHERE id_filme = %s", (id_filme,))
     cursor.execute("DELETE FROM filme_categoria WHERE id_filme = %s", (id_filme,))
@@ -170,32 +180,137 @@ def deleteFilminho(id_filme):
     cursor.execute("DELETE FROM filme_linguagem WHERE id_filme = %s", (id_filme,))
     cursor.execute("DELETE FROM filme_produtora WHERE id_filme = %s", (id_filme,))
 
-    cursor.execute("DELETE FROM filme WHERE id_filme = %s", (id_filme,))
+
+    cursor.execute(
+        "DELETE FROM filme WHERE id_filme = %s",
+        (id_filme,)
+    )
 
     db.commit()
     cursor.close()
     db.close()
 
-    return {"message": "Filme deletado com sucesso", "id_filme": id_filme}
+    return {
+        "message": "Filme deletado com sucesso",
+        "id_filme": id_filme
+    }
 
 
-# pegar Produtoras
-# pegar diretores
-# pegar atores
-# pegar paises
-# pegar linguagens
-# pegar generos
 
-# add Produtoras
-# add diretores
-# add atores
-# add paises
-# add linguagens
-# add generos
 
-# del Produtoras
-# del diretores
-# del atores
-# del paises
-# del linguagens
-# del generos
+def loadFilminhosPendentes():
+
+    db = get_connection()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM filme WHERE flag = 0")
+    results = cursor.fetchall()
+    cursor.close()
+    db.close()
+
+    filmes = [
+        {
+            "id": item[0],
+            "titulo": item[1],
+            "categoria_id": item[2],
+            "orcamento": float(item[3]),
+            "duracao": str(item[4]),
+            "sinopse":item[5],
+            "ano": item[6],
+            "imagem": item[7],
+            "flag": bool(item[8])
+        }
+        for item in results
+    ]
+    return filmes
+
+
+def aprovarFilmini(id):
+    
+    db = get_connection()
+    cursor = db.cursor()
+
+    cursor.execute(
+        """
+        UPDATE filme
+        SET flag = true
+        WHERE id_filme = %s AND flag = 0
+        """,
+        (id,)
+    )
+
+    db.commit()
+
+    linhas_afetadas = cursor.rowcount
+
+    cursor.close()
+    db.close()
+
+    return linhas_afetadas > 0
+
+
+def patchCamposFilme(id_filme, campos):
+    if not campos:
+        return
+
+    sets = []
+    valores = []
+
+    for campo, valor in campos.items():
+        sets.append(f"{campo} = %s")
+        valores.append(valor)
+
+    sql = f"""
+        UPDATE filme
+        SET {', '.join(sets)}
+        WHERE id_filme = %s
+    """
+
+    valores.append(id_filme)
+
+    db = get_connection()
+    cursor = db.cursor()
+
+    cursor.execute(sql, tuple(valores))
+    db.commit()
+
+    cursor.close()
+    db.close()
+
+def patchRelacionamento(id_filme, tabela, campo_relacionado, novos_ids):
+    db = get_connection()
+    cursor = db.cursor()
+
+    cursor.execute(
+        f"DELETE FROM {tabela} WHERE id_filme = %s",
+        (id_filme,)
+    )
+
+    for item_id in novos_ids:
+        cursor.execute(
+            f"""
+            INSERT INTO {tabela} (id_filme, {campo_relacionado})
+            VALUES (%s, %s)
+            """,
+            (id_filme, item_id)
+        )
+
+    db.commit()
+    cursor.close()
+    db.close()
+
+
+def getFilmeById(id_filme):
+    db = get_connection()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute(
+        "SELECT * FROM filme WHERE id_filme = %s",
+        (id_filme,)
+    )
+
+    filme = cursor.fetchone()
+
+    cursor.close()
+    db.close()
+
+    return filme
