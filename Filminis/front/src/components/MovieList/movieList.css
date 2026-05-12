@@ -1,24 +1,29 @@
+/* Centraliza e dá tamanho para as mensagens de "Carregando" ou "Erro" */
 .status {
     text-align: center;
     font-size: 18px;
 }
 
+/* Deixa a mensagem vermelha apenas se houver um erro */
 .status.error {
     color: var(--error);
 }
 
+/* Estiliza o título "Catálogo de Filmes" para dar destaque */
 .filme-section h2 {
     font-size: 32px;
     margin-bottom: 20px;
     color: var(--txt-destacado);
 }
 
+/* O ORGANIZADOR: Divide a tela em 4 colunas iguais com espaço entre elas */
 .filme-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 32px;
 }
 
+/* O CARTÃO: Define o visual de cada filme (bordas, cor de fundo e sombra) */
 .filme-card {
     padding: 10px;
     background-color: var(superficie-cards);
@@ -29,17 +34,20 @@
     transition: transform 0.3s, box-shadow 0.3s ease;
 }
 
+/* A MÁGICA: O que acontece quando você passa o mouse (hover) no cartão */
 .filme-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 25px var(--brilhos);
 }
 
+/* A IMAGEM: Garante que o poster preencha o cartão sem achatar */
 .filme-card img {
     width: 100%;
     object-fit: cover;
     border-radius: 20px 20px 0 0;
 }
 
+/* Espaçamento interno para os textos (título e ano) não encostarem na borda */
 .filme-info {
     padding: 18px;
 }
@@ -50,6 +58,7 @@
     color: var(--txt-principal);
 }
 
+/* Remove aquele sublinhado azul padrão de links de internet */
 a {
     text-decoration: none;
     color: inherit;

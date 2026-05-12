@@ -1,38 +1,44 @@
+/* 1. IMPORTAÇÃO: Busca as fontes no Google para o site não usar a letra padrão do Windows */
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap');
 
+/* 2. VARIÁVEIS (:root): A "Paleta de Cores" oficial do projeto */
 :root {
-  --bg: #08040f;
-  --superficie-cards: #1A0E23;
-  --primary: #9D4EDD;
-  --brilhos: #B57BFF;
+  --bg: #08040f; /* Cor do fundo (um roxo quase preto) */
+  --superficie-cards: #1A0E23; /* Cor dos cartões */
+  --primary: #9D4EDD; /* Roxo principal (botões, detalhes) */
+  --brilhos: #B57BFF; /* Roxo claro para efeitos de luz */
   --txt-destacado: #D8C4FF;
-  --txt-principal: #F5F0FF;
+  --txt-principal: #F5F0FF; /* Cor da letra para leitura */
   --txt-secundario: #A89BB8;
-  --error: #9b0202;
+  --error: #9b0202; /* Vermelho para avisos de erro */
 }
 
+/* 3. RESET (*): Zera as margens que o navegador coloca sozinho */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Garante que tamanhos e bordas não "quebrem" o layout */
 }
 
+/* 4. CORPO (body): Define o visual básico que tudo vai herdar */
 body {
-  background: var(--bg);
-  min-height: 100vh;
-  color: var(--txt-principal);
-  font-family: "Inter", sans-serif;
+  background: var(--bg); /* Aplica a cor de fundo definida lá em cima */
+  min-height: 100vh; /* Garante que o fundo cubra a tela toda */
+  color: var(--txt-principal); /* Cor padrão do texto */
+  font-family: "Inter", sans-serif; /* Fonte moderna e fácil de ler */
   font-weight: 400;
 }
 
+/* 5. TÍTULOS (h1, h2, h3): Estiliza os textos de destaque */
 h1,
 h2,
 h3 {
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
+  font-family: "Space Grotesk", sans-serif; /* Fonte mais futurista para títulos */
+  font-weight: 700; /* Deixa a letra bem grossa (negrito) */
   letter-spacing: 0.5px;
 }
 
+/* Deixa o título principal em letras MAIÚSCULAS e mais espalhado */
 h1 {
   text-transform: uppercase;
   letter-spacing: 1.5px;
