@@ -9,6 +9,8 @@ export default function Login({setRole, setToken}){
     const [senha, setSenha] = useState("")
     const [error, setError] = useState("") // Para guardar mensagens de erro, se houver
 
+    const navigate = useNavigate()
+
     function decodeJWT(token){
         const base64 = token.split('.')[1]
         return JSON.parse(atob(base64.replace(/-/g, "+").replace(/_/g,"/")))
@@ -21,18 +23,18 @@ export default function Login({setRole, setToken}){
         // Tenta enviar os dados e espera (await) a resposta do servidor
         const data = await loginUsuario(email, senha)
 
-        if(data.acess_token){
+        if(data.access_token){
             try{
-                setToken(data.acess_token)
-                localStorage.setItem("acess_token", data.access_token)
+                setToken(data.access_token)
+                localStorage.setItem("access_token", data.access_token)
 
-                const payload = decodeJWT(data.acess_token)
+                const payload = decodeJWT(data.access_token)
 
                 setRole(payload.role)
                 localStorage.setItem("user_role", payload.role)
 
                 setError("")
-                useNavigate("/")
+                navigate("/")
             }catch(err){
                 console.error(err)
                 setError("Erro ao processar token")

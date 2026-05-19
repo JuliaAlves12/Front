@@ -6,8 +6,9 @@ def get_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="mmoraiss",
-        database="filme_mari"
+        password="root",
+        database="filme_mari",
+        auth_plugin='mysql_native_password'
     )
 
 def insertUser(
