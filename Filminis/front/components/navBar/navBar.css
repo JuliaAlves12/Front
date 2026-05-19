@@ -1,0 +1,26 @@
+/* 2. O HEADER: A "caixa" do topo onde fica o nome do site */
+header {
+    background-color: var(--superficie-cards);
+    /* Usa a cor roxa escura das variáveis */
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 48px;
+    /* Empurra o conteúdo de baixo para não ficar grudado */
+    text-align: center;
+    /* Centraliza o título e o texto de boas-vindas */
+    box-shadow: 0px 8px 20px var(--primary);
+    /* Cria aquela aura iluminada roxa embaixo do cabeçalho */
+}
+
+/* 3. TÍTULO DO HEADER: O nome "Cinelist" */
+header h1 {
+    font-size: 56px;
+    /* Deixa o nome do site bem grande */
+    margin-top: 8px;
+}
+
+/* 4. SUBTÍTULO: A frase "Seu catálogo de filmes favoritos" */
+header p {
+    font-size: 18px;
+    /* Aqui ele herda a cor secundária ou principal automaticamente */
+}

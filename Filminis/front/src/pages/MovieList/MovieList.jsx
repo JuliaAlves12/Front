@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { buscarFilmes, filmeID } from "../../services/api";
 import { Link } from "react-router-dom"; // Importa o "link inteligente" que não recarrega a página
 import "./movieList.css" // Importa o visual (estilos) da lista
+import NavBar from "../../../components/navBar/navBar";
 
-export default function MovieList() {
+export default function MovieList({logOut}) {
     // 1. Memória: Aqui 'filmes' começa como uma lista vazia []
     const [filmes, setFilmes] = useState([]);
     const [error, setError] = useState("");
@@ -35,24 +36,26 @@ export default function MovieList() {
 
     // 4. A Vitrine: Transforma a lista de dados em elementos visuais
     return (
-        <section className="filme-section">
-            <h2>Catálogo de Filmes</h2>
+        <>
+            <NavBar logOut={logOut}/>
 
-            <div className="filme-grid">
-                {/* O .map é um "repetidor": para cada filme na lista, ele cria um <article> */}
-                {filmes.map((film) => (
-                    <article className="filme-card" key={film.id}>
-                        {/* O Link cria a conexão: ao clicar, envia o ID do filme para a URL */}
-                        <Link to={`/filme?id=${film.id}`}>
-                            <img src={film.imagem} alt={`Poster do filme ${film.titulo}`} />
-                            <div className="filme-info">
-                                <h3>{film.titulo}</h3>
-                                <p>{film.ano}</p>
-                            </div>
-                        </Link>
-                    </article>
-                ))}
-            </div>
-        </section>
+            <section className="filme-section">
+                <h2>Catálogo de Filmes</h2>
+
+                <div className="filme-grid">
+                    {filmes.map((film) => (
+                        <article className="filme-card" key={film.id}>
+                            <Link to={'/filme?id=${film.id}'}>
+                                <img src={film.imagem} alt={'Poster do filme ${film.titulo}'} />
+                                <div className="filme-info">
+                                    <h3>{film.titulo}</h3>
+                                    <p>{film.ano}</p>
+                                </div>
+                            </Link>
+                        </article>
+                    ))}
+                </div>
+            </section>
+        </>
     )
 }
