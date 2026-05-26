@@ -1,21 +1,31 @@
 import { Link } from "react-router-dom";
+import "./navBar.css"
 
-
-export default function NavBar({logOut}) {
+export default function NavBar({ logOut }) {
     return (
-        <div>
-            <header>
+        <header>
+
+            <div className="left-navbar">
                 <Link to='/'>
                     <h1>CineList</h1>
                 </Link>
-                <p>Seu catálogo de filmes favoritos.</p>
+
+                <p className="frase">
+                    Seu catálogo de filmes favoritos.
+                </p>
+            </div>
+
+            <div className="right-navbar">
                 <Link to='/login'>
                     <p>Login</p>
                 </Link>
 
-                <button onClick={logOut}>LogOut</button>
-            </header>
-        </div>
+                <button onClick={logOut}>
+                    LogOut
+                </button>
+            </div>
+
+        </header>
     )
 }
 
