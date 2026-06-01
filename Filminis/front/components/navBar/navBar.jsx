@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import "./navBar.css"
+import "./navBar.css";
 
-export default function NavBar({ logOut }) {
+export default function NavBar({ logOut, funcaoContraste, estaAtivo }) {
     return (
-        <header>
+        <header className="header-nav">
 
             <div className="left-navbar">
                 <Link to='/'>
@@ -16,16 +16,19 @@ export default function NavBar({ logOut }) {
             </div>
 
             <div className="right-navbar">
+                <button className="botao-contraste" onClick={funcaoContraste}>
+                    {estaAtivo ? "Modo Normal" : "Alto Contraste"}
+                </button>
+
                 <Link to='/login'>
                     <p>Login</p>
                 </Link>
 
-                <button onClick={logOut}>
+                <button className="botao-logout" onClick={logOut}>
                     LogOut
                 </button>
             </div>
 
         </header>
-    )
+    );
 }
-

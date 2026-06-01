@@ -5,12 +5,13 @@
 :root {
   --bg: #08040f; /* Cor do fundo (um roxo quase preto) */
   --superficie-cards: #1A0E23; /* Cor dos cartões */
+  --superficie-cards-border: #321747;
   --primary: #9D4EDD; /* Roxo principal (botões, detalhes) */
   --brilhos: #B57BFF; /* Roxo claro para efeitos de luz */
   --txt-destacado: #D8C4FF;
   --txt-principal: #F5F0FF; /* Cor da letra para leitura */
   --txt-secundario: #A89BB8;
-  --error: #9b0202; /* Vermelho para avisos de erro */
+  --error: #ff4646; /* Vermelho para avisos de erro */
 }
 
 /* 3. RESET (*): Zera as margens que o navegador coloca sozinho */

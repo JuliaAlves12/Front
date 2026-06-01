@@ -1,31 +1,29 @@
-header {
+.header-nav {
     background-color: var(--superficie-cards);
     border-radius: 16px;
-    padding: 12px 24px;
+    padding: 30px 140px;
     margin-left: 20px;
     margin-right: 20px;
-    box-shadow: 0px 4px 12px var(--primary);
+    box-shadow: 0 5px 25px #B57BFF;
     display: flex;
-
     justify-content: space-between;
     align-items: center;
 }
 
-header h1 {
-    font-size: 32px;
-    margin: 0;
+.header-nav h1 {
+    font-size: 48px;
 }
 
 .frase {
-    font-size: 14px;
+    font-size: 16px;
     opacity: 0.8;
 }
 
 .right-navbar {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px; 
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
     font-size: 14px;
 }
 
@@ -37,11 +35,43 @@ header h1 {
     font-weight: 600;
 }
 
-.right-navbar button {
+.botao-logout {
     background: none;
     border: none;
     padding: 0;
-    color: var(--txt-secundario);
+    color: #ff4a4a;
     font-family: inherit;
     cursor: pointer;
+    font-weight: 600;
+}
+
+.left-navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.botao-contraste {
+    background-color: var(--primary);
+    color: var(--txt-principal);
+    border: none;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.botao-contraste:active {
+    transform: translateY(0);
+}
+
+.modo-alto-contraste .botao-contraste {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: none !important;
+    transform: none !important;
 }

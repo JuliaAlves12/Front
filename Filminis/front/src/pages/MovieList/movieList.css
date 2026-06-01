@@ -1,69 +1,97 @@
-/* Centraliza e dá tamanho para as mensagens de "Carregando" ou "Erro" */
 .status {
     text-align: center;
     font-size: 18px;
 }
 
-/* Deixa a mensagem vermelha apenas se houver um erro */
 .status.error {
     color: var(--error);
 }
 
-/* Estiliza o título "Catálogo de Filmes" para dar destaque */
-.filme-section h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: var(--txt-destacado);
+.filme-section {
+    padding: 0 48px;
 }
 
-/* O ORGANIZADOR: Divide a tela em 4 colunas iguais com espaço entre elas */
+.filme-section h2 {
+    font-size: 32px;
+    color: var(--txt-destacado);
+    max-width: 1240px;
+    margin: 0 auto 20px auto;
+}
+
 .filme-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
+    gap: 36px;
+    max-width: 1240px;
+    margin: 0 auto;
 }
 
-/* O CARTÃO: Define o visual de cada filme (bordas, cor de fundo e sombra) */
 .filme-card {
-    padding: 10px;
-    background-color: var(superficie-cards);
+    padding: 16px;
+    background-color: var(--superficie-cards);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 2px 2px 20px #36173f;
-    transform: translateY(8);
-    transition: transform 0.3s, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
-/* A MÁGICA: O que acontece quando você passa o mouse (hover) no cartão */
-.filme-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px var(--brilhos);
-}
-
-/* A IMAGEM: Garante que o poster preencha o cartão sem achatar */
 .filme-card img {
     width: 100%;
+    aspect-ratio: 2 / 3;
     object-fit: cover;
-    border-radius: 20px 20px 0 0;
+    border-radius: 12px;
 }
 
-/* Espaçamento interno para os textos (título e ano) não encostarem na borda */
 .filme-info {
-    padding: 18px;
+    padding: 16px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 16px;
 }
 
 .filme-info h3 {
     font-size: 20px;
-    margin-bottom: 8px;
     color: var(--txt-principal);
 }
 
-/* Remove aquele sublinhado azul padrão de links de internet */
+.filme-info p {
+    color: var(--txt-secundario);
+}
+
 a {
     text-decoration: none;
     color: inherit;
 }
 
-a:hover {
-    text-decoration: underline;
+.modo-alto-contraste {
+    background-color: #000000 !important;
+}
+
+.modo-alto-contraste .header-nav {
+    background-color: #000000 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.modo-alto-contraste .header-nav h1,
+.modo-alto-contraste .frase,
+.modo-alto-contraste .filme-section h2,
+.modo-alto-contraste .filme-info h3,
+.modo-alto-contraste .filme-info p {
+    color: #ffffff !important;
+}
+
+.modo-alto-contraste .filme-card {
+    background-color: #000000 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.modo-alto-contraste .botao-acessar {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+    border: 2px solid #ffff00 !important;
+    box-shadow: none !important;
 }
