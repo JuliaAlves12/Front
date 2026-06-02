@@ -9,7 +9,6 @@ export default function NavBar({ logOut, funcaoContraste, estaAtivo }) {
                 <Link to='/'>
                     <h1>CineList</h1>
                 </Link>
-
                 <p className="frase">
                     Seu catálogo de filmes favoritos.
                 </p>

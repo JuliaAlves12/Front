@@ -64,6 +64,12 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
+.botao-contraste:hover {
+    background-color: #c694ff;
+    box-shadow: 0 4px 15px rgba(181, 123, 255, 0.4);
+    transform: translateY(-2px);
+}
+
 .botao-contraste:active {
     transform: translateY(0);
 }
