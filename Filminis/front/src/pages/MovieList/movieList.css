@@ -8,7 +8,7 @@
 }
 
 .filme-section {
-    padding: 0 48px;
+    padding: 48px;
 }
 
 .topo-secao {
@@ -36,8 +36,8 @@
 }
 
 .barra-pesquisa-composta:focus-within {
-    border-color: #c694ff;
-    box-shadow: 0 0 10px rgba(181, 123, 255, 0.5);
+    border-color: var(--brilhos);
+    box-shadow: 0 0 10px var(--sombra-foco);
 }
 
 .campo-busca {
@@ -63,7 +63,7 @@
 }
 
 .wrapper-filtro:hover {
-    background-color: rgba(181, 123, 255, 0.1);
+    background-color: var(--primary-transparente);
 }
 
 .display-filtro {
@@ -87,7 +87,7 @@
     padding: 8px 0;
     margin: 0;
     width: 180px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 25px var(--sombra-padrao);
     z-index: 100;
 }
 
@@ -100,49 +100,63 @@
 }
 
 .menu-filtro-customizado li:hover {
-    background-color: rgba(181, 123, 255, 0.2);
+    background-color: var(--primary-transparente);
 }
 
 .filme-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 36px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
     max-width: 1240px;
     margin: 0 auto;
 }
 
 .filme-card {
-    padding: 16px;
+    padding: 12px;
     background-color: var(--superficie-cards);
-    border-radius: 20px;
+    border: 1px solid var(--superficie-cards-border);
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 2px 2px 20px #36173f;
+    box-shadow: 0 4px 20px var(--sombra-padrao);
     display: flex;
     flex-direction: column;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filme-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--brilhos);
+    box-shadow: 0 8px 25px var(--sombra-padrao);
 }
 
 .filme-card img {
     width: 100%;
     aspect-ratio: 2 / 3;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 .filme-info {
-    padding: 16px 0 0 0;
+    padding: 12px 0 0 0;
     display: flex;
     flex-direction: column;
     flex: 1;
-    gap: 16px;
+    gap: 8px;
 }
 
 .filme-info h3 {
-    font-size: 20px;
+    font-size: 16px;
     color: var(--txt-principal);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .filme-info p {
     color: var(--txt-secundario);
+    font-size: 13px;
+    margin: 0;
 }
 
 a {
@@ -150,16 +164,39 @@ a {
     color: inherit;
 }
 
+@media (max-width: 1024px) {
+    .filme-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .filme-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .topo-secao {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filme-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .modo-alto-contraste {
-    background-color: #000000 !important;
+    background-color: var(--ac-bg) !important;
 }
 
 .modo-alto-contraste .header-nav,
 .modo-alto-contraste .filme-card,
 .modo-alto-contraste .barra-pesquisa-composta,
 .modo-alto-contraste .menu-filtro-customizado {
-    background-color: #000000 !important;
-    border: 2px solid #ffffff !important;
+    background-color: var(--ac-bg) !important;
+    border: 2px solid var(--ac-txt) !important;
     box-shadow: none !important;
 }
 
@@ -171,21 +208,21 @@ a {
 .modo-alto-contraste .campo-busca,
 .modo-alto-contraste .display-filtro,
 .modo-alto-contraste .menu-filtro-customizado li {
-    color: #ffffff !important;
+    color: var(--ac-txt) !important;
 }
 
 .modo-alto-contraste .botao-acessar {
-    background-color: #ffff00 !important;
-    color: #000000 !important;
-    border: 2px solid #ffff00 !important;
+    background-color: var(--ac-accent) !important;
+    color: var(--ac-bg) !important;
+    border: 2px solid var(--ac-accent) !important;
     box-shadow: none !important;
 }
 
 .modo-alto-contraste .wrapper-filtro {
-    border-left: 2px solid #ffffff !important;
+    border-left: 2px solid var(--ac-txt) !important;
 }
 
 .modo-alto-contraste .menu-filtro-customizado li:hover {
-    background-color: #ffffff !important;
-    color: #000000 !important;
+    background-color: var(--ac-txt) !important;
+    color: var(--ac-bg) !important;
 }

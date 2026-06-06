@@ -90,3 +90,38 @@ def deleteActorsDirector(tabela, id_item):
 
     return loadActorsDirector(tabela)
 
+def get_or_create_person(tabela, nome_completo):
+    if tabela not in TABELAS:
+        raise ValueError("Tabela inválida!")
+
+    nome_completo = str(nome_completo).strip()
+    if not nome_completo:
+        return None
+
+    partes = nome_completo.split(" ", 1)
+    nome = partes[0]
+    sobrenome = partes[1] if len(partes) > 1 else ""
+
+    db = get_connection()
+    cursor = db.cursor()
+
+    cursor.execute(
+        f"SELECT id_{tabela} FROM {tabela} WHERE nome = %s AND sobrenome = %s", 
+        (nome, sobrenome)
+    )
+    result = cursor.fetchone()
+
+    if result:
+        id_person = result[0]
+    else:
+        cursor.execute(
+            f"INSERT INTO {tabela} (nome, sobrenome, id_genero) VALUES (%s, %s, %s)",
+            (nome, sobrenome, 3)
+        )
+        db.commit()
+        id_person = cursor.lastrowid
+
+    cursor.close()
+    db.close()
+    
+    return id_person

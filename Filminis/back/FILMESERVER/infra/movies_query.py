@@ -10,5 +10,6 @@ SELECT
 FROM filme f
 LEFT JOIN filme_categoria fc ON f.id_filme = fc.id_filme
 LEFT JOIN categoria c ON fc.id_categoria = c.id_categoria
+WHERE f.flag = 1 
 GROUP BY f.id_filme;
 """

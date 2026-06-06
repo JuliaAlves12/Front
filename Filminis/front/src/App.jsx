@@ -1,61 +1,51 @@
-import MovieList from "./pages/MovieList/MovieList" // Traz a página da vitrine
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom" // Ferramentas de navegação
-import "./App.css" // Estilo global do site
-import Movie from "./pages/Movie/Movie" // Traz a página de detalhes
-import Login from "./pages/Login/Login" // Traz a página de login
-import { useEffect, useState } from "react"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 
-function App() {
+import MovieList from "./pages/MovieList/MovieList"; 
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import AddMovie from "./pages/AdicionarMovie/AddMovie"; 
+import AdminPainel from "./pages/AdminPainel/AdminPainel"; 
 
-  const [token, setToken] = useState(null)
-  const [role, setRole] = useState(null)
+export default function App() {
+  // Puxa do localStorage na inicialização
+  const [token, setToken] = useState(localStorage.getItem("access_token"));
+  const [userRole, setUserRole] = useState(localStorage.getItem("user_role")); 
 
-  useEffect(() => {
-    const tokenSalvo = localStorage.getItem("access_token")
-    const roleSalvo = localStorage.getItem("user_role")
-
-    if (tokenSalvo && roleSalvo) {
-      setToken(tokenSalvo)
-      setRole(roleSalvo)
-    }
-  }, [])
-
-  const handleLogout = () => {
-    localStorage.clear()
-    setToken(null)
-    setRole(null)
-  }
+  const logOut = () => {
+    localStorage.clear();
+    setToken(null);
+    setUserRole(null);
+  };
 
   return (
-    // 1. BrowserRouter: O "vigia". Ele fica olhando a barra de endereço do navegador.
     <BrowserRouter>
-      {/* 3. Routes: O "trocador de palcos". Só uma dessas rotas aparece por vez. */}
       <Routes>
+        <Route path="/" element={<MovieList logOut={logOut} />} />
+        
+        {/* CORREÇÃO AQUI: Passando as funções com o nome exato que o Login.jsx espera */}
+        <Route path="/login" element={<Login setToken={setToken} setRole={setUserRole} />} />
+        
+        <Route path="/register" element={<Register />} />
+        
+        {/* Passando o AddMovie corretamente */}
+        <Route 
+          path="/add-movie" 
+          element={token ? <AddMovie logOut={logOut} /> : <Navigate to="/login" />} 
+        />
 
-        {token ? (
-          <>
-            {/* Se o endereço for "/" (vazio), mostre a vitrine (MovieList) */}
-            <Route path="/" element={
-              <MovieList logOut={handleLogout} />} />
-            {/* Se o endereço tiver "/filme", mostre os detalhes (Movie) */}
-            <Route path="/filme" element={<Movie />} />
-            {/* Se o endereço tiver "/login", mostre o formulário (Login) */}
-            <Route path="/login" element={
-              <Login setRole={setRole} setToken={setToken} />} />
-          </>
-        ) : (
-          <>
-            <Route path="/" element={<MovieList />} />
-            <Route path="/login" element={
-              <Login setRole={setRole} setToken={setToken} />} />
-          </>
-        )}
-
+        {/* ROTA PROTEGIDA DO ADMIN */}
+        <Route 
+          path="/admin" 
+          element={
+            token && userRole === "admin" ? (
+              <AdminPainel logOut={logOut} />
+            ) : (
+              <Navigate to="/" /> 
+            )
+          } 
+        />
       </Routes>
-
     </BrowserRouter>
-
-  )
+  );
 }
-
-export default App;

@@ -1,10 +1,10 @@
-
 import json
 from urllib.parse import parse_qs, urlparse
 from infra.database import *
 from infra.users_database import *
-from infra.actorsDirectors import *
-from infra.genresProducers import *
+from infra.actorsDirectors import loadActorsDirector, insertActorDirector, get_or_create_person
+from infra.genresProducers import loadGenresProducer, insertGenresProducer, get_or_create_generic
+
 from api.jwt import *
 from etc.colors import Colors
 
@@ -138,7 +138,6 @@ def post_Cadastrani(handler):
         handler._send_json({"error": "Token inválido ou expirado"}, 401)
         return
 
-    # o Role é que define a 'flag' ela ñ vem do front
     role = payload.get("role")
     flag = True if role == "admin" else False
 
@@ -152,7 +151,7 @@ def post_Cadastrani(handler):
         return
 
     nome = data.get("titulo")
-    ano = int(data.get("ano"))
+    ano = int(data.get("ano", 0))
     sinopse = data.get("sinopse")
     duracao = data.get("duracao")
     poster = data.get("imagem")
@@ -170,25 +169,32 @@ def post_Cadastrani(handler):
     else:
         orcamento = int(orcamento_raw)
 
+    atores_nomes = data.get("atores", [])
+    diretores_nomes = data.get("diretores", [])
+    categorias_nomes = data.get("categorias", [])
+    produtoras_nomes = data.get("produtoras", [])
+    linguagens_nomes = data.get("linguagens", [])
+    paises_nomes = data.get("paises", [])
 
-    categorias = data.get("categoria_id", [])
-    diretores = data.get("diretor_id", [])
-    atores = data.get("atores_ids", [])
-    produtoras = data.get("produtora_id", [])
-    linguagens = data.get("linguagem_id", [])
-    paises = data.get("pais_origem_id", [])
+    atores_ids = [get_or_create_person("ator", nome) for nome in atores_nomes if str(nome).strip()]
+    diretores_ids = [get_or_create_person("diretor", nome) for nome in diretores_nomes if str(nome).strip()]
+    
+    categorias_ids = [get_or_create_generic("categoria", cat) for cat in categorias_nomes if str(cat).strip()]
+    produtoras_ids = [get_or_create_generic("produtora", prod) for prod in produtoras_nomes if str(prod).strip()]
+    linguagens_ids = [get_or_create_generic("linguagem", ling) for ling in linguagens_nomes if str(ling).strip()]
+    paises_ids = [get_or_create_generic("pais", pais) for pais in paises_nomes if str(pais).strip()]
 
-    produtora_principal = produtoras[0] if produtoras else None
+    produtora_principal = produtoras_ids[0] if produtoras_ids else None
 
     resp = insertFilminhos(
         nome=nome,
         produtora_principal=produtora_principal,
-        produtoras=produtoras,
-        categorias=categorias,
-        atores=atores,
-        diretores=diretores,
-        linguagens=linguagens,
-        paises=paises,
+        produtoras=produtoras_ids,
+        categorias=categorias_ids,
+        atores=atores_ids,
+        diretores=diretores_ids,
+        linguagens=linguagens_ids,
+        paises=paises_ids,
         orcamento=orcamento,
         duracao=duracao,
         sinopse=sinopse,
@@ -197,9 +203,8 @@ def post_Cadastrani(handler):
         flag=flag 
     )
 
-    
     handler._send_json({
-        "id": resp.get("id"),
+        "id": resp.get("id") if resp else None,
         "aprovado": flag,
         "message": "Filme criado com sucesso" if flag else "Filme enviado para aprovação"
     }, 201)
@@ -333,4 +338,4 @@ def patch_Filme(handler):
     if "produtoras" in data:
         patchRelacionamento(id_filme, "filme_produtora", "id_produtora", data["produtoras"])
 
-    handler._send_json({"message": "Filme editado com sucesso"})
+    handler._send_json({"message": "Filme edited com sucesso"})

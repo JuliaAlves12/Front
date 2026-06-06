@@ -111,3 +111,28 @@ def deleteGenresProducer(tabela, id_item):
 
     return loadGenresProducer(tabela)
 
+def get_or_create_generic(tabela, nome_item):
+    if tabela not in TABELAS:
+        raise ValueError("Tabela inválida!")
+
+    nome_item = str(nome_item).strip()
+    if not nome_item:
+        return None
+    
+    db = get_connection()
+    cursor = db.cursor()
+
+    cursor.execute(f"SELECT id_{tabela} FROM {tabela} WHERE nome = %s", (nome_item,))
+    result = cursor.fetchone()
+
+    if result:
+        id_item = result[0]
+    else:
+        cursor.execute(f"INSERT INTO {tabela} (nome) VALUES (%s)", (nome_item,))
+        db.commit()
+        id_item = cursor.lastrowid
+
+    cursor.close()
+    db.close()
+    
+    return id_item

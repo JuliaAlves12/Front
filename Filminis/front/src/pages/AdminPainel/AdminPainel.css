@@ -1,0 +1,141 @@
+.pagina-admin {
+    min-height: 100vh;
+    background-color: var(--bg);
+}
+
+.admin-container {
+    padding: 40px 48px;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.topo-admin {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.topo-admin h2 {
+    font-size: 36px;
+    color: var(--txt-destacado);
+    margin-bottom: 8px;
+}
+
+.topo-admin p {
+    color: var(--txt-secundario);
+    font-size: 16px;
+}
+
+.status-admin {
+    text-align: center;
+    font-size: 18px;
+    color: var(--txt-principal);
+    margin-top: 50px;
+}
+
+.mensagem-erro-admin {
+    background-color: var(--erro-bg);
+    color: var(--erro-txt);
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--erro-txt);
+    margin-bottom: 20px;
+}
+
+.grid-pendentes {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+}
+
+.card-pendente {
+    padding: 12px;
+    background-color: var(--superficie-cards);
+    border: 1px solid var(--superficie-cards-border);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px var(--sombra-padrao);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-pendente img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.info-pendente {
+    padding: 12px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+}
+
+.info-pendente h3 {
+    font-size: 16px;
+    color: var(--txt-principal);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info-pendente p {
+    color: var(--txt-secundario);
+    font-size: 13px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.botao-aprovar {
+    background-color: var(--sucesso-bg);
+    color: var(--sucesso-txt);
+    border: 1px solid var(--sucesso-txt);
+    padding: 10px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: auto;
+}
+
+.botao-aprovar:hover {
+    background-color: var(--sucesso-txt);
+    color: var(--bg);
+}
+
+@media (max-width: 1024px) {
+    .grid-pendentes { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .grid-pendentes { grid-template-columns: repeat(3, 1fr); }
+    .admin-container { padding: 20px; }
+}
+
+@media (max-width: 480px) {
+    .grid-pendentes { grid-template-columns: repeat(2, 1fr); }
+}
+
+.modo-alto-contraste .card-pendente {
+    background-color: var(--ac-bg) !important;
+    border: 2px solid var(--ac-txt) !important;
+    box-shadow: none !important;
+}
+
+.modo-alto-contraste .topo-admin h2,
+.modo-alto-contraste .topo-admin p,
+.modo-alto-contraste .info-pendente h3,
+.modo-alto-contraste .info-pendente p,
+.modo-alto-contraste .status-admin {
+    color: var(--ac-txt) !important;
+}
+
+.modo-alto-contraste .botao-aprovar {
+    background-color: var(--ac-bg) !important;
+    color: var(--ac-txt) !important;
+    border: 2px solid var(--ac-txt) !important;
+}

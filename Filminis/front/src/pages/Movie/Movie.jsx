@@ -1,79 +1,105 @@
-
-import { useEffect, useState } from "react"; // useEffect: faz algo assim que a página carrega
-import { filmeID } from "../../services/api"; // Busca os dados do filme no servidor
-import { useSearchParams } from "react-router-dom"; // Lê o ID do filme na barra de endereço (ex: ?id=123)
+import { useEffect, useState } from "react";
+import { buscarFilmes } from "../../services/api"; // Usando a função que sabemos que funciona!
+import { useSearchParams, Link } from "react-router-dom";
+import NavBar from "../../../components/navBar/navBar";
+import "./Movie.css";
 
 export default function Movie() {
-
-    // 1. Identificação: Pega o ID do filme que está na URL do navegador
     const [buscaParam] = useSearchParams();
-    const id = buscaParam.get('id')
+    const id = buscaParam.get('id');
 
-    // 2. Memória: Estados para o filme, para o carregamento e para erros
-    const [filme, setFilme] = useState(null)
-    const [loading, setLoading] = useState(true) // Começa como 'true' (carregando...)
-    const [erro, setErro] = useState("")
+    const [filme, setFilme] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [erro, setErro] = useState("");
+    const [altoContraste, setAltoContraste] = useState(false);
 
-    // 3. O "Gatilho": O useEffect executa o código assim que o componente aparece
     useEffect(() => {
         async function carregarFilme() {
             try {
-                setLoading(true) // Garante que a mensagem de "carregando" apareça
-                setErro("") // Limpa erros de tentativas anteriores
+                setLoading(true);
+                setErro("");
 
-                const dados = await filmeID(id); // Faz a chamada real ao servidor
+                // Pega a lista completa de filmes
+                const todosOsFilmes = await buscarFilmes();
 
-                if (!dados) {
-                    throw new Error("Filme não encontrado") // Se o servidor não achar nada, gera um erro
+                // Pesca apenas o filme que tem o ID igual ao que foi clicado
+                const filmeEncontrado = todosOsFilmes.find((f) => Number(f.id) === Number(id));
+
+                if (!filmeEncontrado) {
+                    throw new Error("Filme não encontrado na lista.");
                 }
 
-                setFilme(dados) // Sucesso! Guarda os dados do filme na memória
+                setFilme(filmeEncontrado); 
+                
             } catch (erro) {
-                setErro(erro.message) // Algo deu errado (internet caiu ou ID inválido)
+                setErro(erro.message);
             } finally {
-                setLoading(false); // Acabou o processo (com sucesso ou erro), para de carregar
+                setLoading(false);
             }
         }
+        
         if (id) {
-            carregarFilme(); // Só busca se existir um ID para procurar
+            carregarFilme();
         }
-    }, [id]) // Refaz tudo se o ID na barra de endereço mudar
+    }, [id]);
 
-    // 4. Telas de Estado: O que mostrar enquanto os dados não chegam
     if (loading) {
-        return <p className="loading"> Carregando filme...</p> // Tela de espera
+        return <p className="status">Carregando filme...</p>;
     }
 
     if (erro) {
-        return <p className="error">Erro: {erro}</p> // Tela de aviso de problema
+        return <p className="status error">Erro: {erro}</p>;
     }
 
     if (!filme) {
-        return <p className="error"> Nenhum filme para exibir.</p> // Tela de segurança
+        return <p className="status error">Nenhum filme para exibir.</p>;
     }
- 
-    // 5. O Visual Final: Só aparece quando o 'filme' já está na memória
+
+    const listaCategorias = filme.categorias ? filme.categorias.split(',') : [];
+
     return (
-        <main>
-            <h2>{filme.titulo}</h2>
-            <div>
-                <p>Ano: {filme.ano}</p>
-                <p>Duração: {filme.duracao}</p>
-            </div>
+        <div className={altoContraste ? "pagina-detalhes modo-alto-contraste" : "pagina-detalhes"}>
+            <NavBar 
+                funcaoContraste={() => setAltoContraste(!altoContraste)} 
+                estaAtivo={altoContraste} 
+            />
 
-            <figure>
-                <img src={filme.poster} alt={`Poster do filme ${filme.titulo}`} />
-            </figure>
+            <main className="detalhes-container">
+                <Link to="/" className="botao-voltar">← Voltar para o Catálogo</Link>
 
-            <section>
-                <h3>Categorias</h3>
-                <ul>
-                    {/* O .map percorre a lista de categorias e cria um <li> para cada uma */}
-                    {filme.categorias.map((c) => (
-                        <li>{c}</li>
-                    ))}
-                </ul>
-            </section>
-        </main>
-    )
+                <section className="detalhes-conteudo">
+                    <img 
+                        src={filme.poster || filme.imagem} 
+                        alt={`Poster do filme ${filme.titulo}`} 
+                        className="detalhes-poster" 
+                    />
+
+                    <div className="detalhes-info">
+                        <h1>{filme.titulo}</h1>
+
+                        <div className="tags-filme">
+                            <span className="tag-info">{filme.ano}</span>
+                            <span className="tag-info">{filme.duracao}</span>
+                        </div>
+
+                        <div className="categorias-box">
+                            <h3>Categorias</h3>
+                            <ul className="lista-categorias">
+                                {listaCategorias.map((categoria, index) => (
+                                    <li key={index} className="tag-categoria">
+                                        {categoria.trim()}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="sinopse-box">
+                            <h3>Sinopse</h3>
+                            <p>{filme.sinopse}</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    );
 }

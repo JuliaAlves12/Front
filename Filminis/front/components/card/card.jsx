@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import "./card.css";
+import "./card.css"; // Isso é obrigatório para o estilo funcionar!
 
 export default function Card({ idFilme }) {
-    return(
-        <Link to={`/filme?id=${idFilme}`} className="botao-acessar">
-            Acessar
+    return (
+        <Link to={`/movie?id=${idFilme}`} className="botao-acessar">
+            Acessar Filme
         </Link>
-    )
+    );
 }

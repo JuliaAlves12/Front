@@ -1,75 +1,99 @@
-import { useState } from "react"
-import { loginUsuario } from "../../services/api"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom"; // Não esqueça do Link aqui!
+import { loginUsuario } from "../../services/api";
+import NavBar from "../../../components/navBar/navBar";
+import "./login.css";
 
-export default function Login({setRole, setToken}){
+export default function Login({ setToken, setRole }) {
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [erro, setErro] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [altoContraste, setAltoContraste] = useState(false);
     
-    // Cria as caixinhas de memória e as funções que as atualizam
-    const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
-    const [error, setError] = useState("") // Para guardar mensagens de erro, se houver
+    // O useNavigate é o nosso "motorista", ele leva o usuário pra outra tela
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
-
-    function decodeJWT(token){
-        const base64 = token.split('.')[1]
-        return JSON.parse(atob(base64.replace(/-/g, "+").replace(/_/g,"/")))
-    }
-
-    // Função que lida com o clique no botão "Entrar"
     const handleLogin = async (e) => {
-        e.preventDefault() // Impede a página de recarregar sozinha, e fazer o botão de enviar a gente conseguir criar a funcao dele, sem usar o ja existente
+        e.preventDefault(); // Evita que a página recarregue ao enviar o formulário
+        setLoading(true);
+        setErro("");
 
-        // Tenta enviar os dados e espera (await) a resposta do servidor
-        const data = await loginUsuario(email, senha)
+        try {
+            const dados = await loginUsuario(email, senha);
 
-        if(data.access_token){
-            try{
-                setToken(data.access_token)
-                localStorage.setItem("access_token", data.access_token)
-
-                const payload = decodeJWT(data.access_token)
-
-                setRole(payload.role)
-                localStorage.setItem("user_role", payload.role)
-
-                setError("")
-                navigate("/")
-            }catch(err){
-                console.error(err)
-                setError("Erro ao processar token")
+            if (!dados) {
+                throw new Error("E-mail ou senha incorretos!");
             }
-        }else{
-            setError(data.error || "Erro no login")
+
+            const tokenRecebido = dados.access_token || dados.token; 
+            const roleRecebida = dados.role || dados.tipo_usuario || "user";
+
+            // Salva no navegador para não deslogar quando der F5
+            localStorage.setItem("access_token", tokenRecebido);
+            localStorage.setItem("user_role", roleRecebida);
+
+            // Atualiza o App.jsx para liberar as rotas
+            setToken(tokenRecebido);
+            setRole(roleRecebida);
+
+            // Manda o usuário de volta para a tela inicial
+            navigate("/");
+
+        } catch (error) {
+            setErro(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
+    return (
+        <div className={altoContraste ? "pagina-login modo-alto-contraste" : "pagina-login"}>
+            <NavBar 
+                funcaoContraste={() => setAltoContraste(!altoContraste)} 
+                estaAtivo={altoContraste} 
+            />
 
-    return(
-        <main>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
-                <label htmlFor="email">Email:</label>
-                <input type="email" 
-                placeholder="Digite seu emaill..."
-                name="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} // Atualiza a memória a cada letra digitada 
-                required // Obriga o preenchimento antes de enviar
-                />
+            <main className="login-container">
+                <form className="login-form" onSubmit={handleLogin}>
+                    <h2>Acesse sua Conta</h2>
+                    
+                    {erro && <p className="mensagem-erro">{erro}</p>}
 
-                <label htmlFor="senha">Senha:</label>
-                <input type="password" 
-                placeholder="Digite sua senha..."
-                name="senha"
-                id="senha"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)} required
-                />
+                    <div className="grupo-input">
+                        <label htmlFor="email">E-mail</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="Digite seu e-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required 
+                        />
+                    </div>
 
-                <button type="submit">Entrar</button>
-            </form>
-        </main>
-    )
+                    <div className="grupo-input">
+                        <label htmlFor="senha">Senha</label>
+                        <input 
+                            type="password" 
+                            id="senha" 
+                            placeholder="Digite sua senha"
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                            required 
+                        />
+                    </div>
+
+                    <button type="submit" className="botao-entrar" disabled={loading}>
+                        {loading ? "Entrando..." : "Entrar"}
+                    </button>
+
+                    {/* O nosso atalho para a página de Cadastro fica aqui! */}
+                    <p style={{ textAlign: "center", marginTop: "16px", color: "var(--txt-secundario)", fontSize: "14px" }}>
+                        Ainda não tem conta? <Link to="/register" style={{ color: "var(--primary)", fontWeight: "bold", textDecoration: "none" }}>Cadastre-se</Link>
+                    </p>
+                </form>
+            </main>
+        </div>
+    );
 }

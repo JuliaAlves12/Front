@@ -1,0 +1,132 @@
+.pagina-detalhes {
+    min-height: 100vh;
+    background-color: var(--bg);
+}
+
+.detalhes-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 40px;
+}
+
+.botao-voltar {
+    display: inline-block;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 30px;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.botao-voltar:hover {
+    color: #c694ff;
+}
+
+.detalhes-conteudo {
+    display: flex;
+    gap: 50px;
+    background-color: var(--superficie-cards);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(181, 123, 255, 0.2);
+}
+
+.detalhes-poster {
+    width: 320px;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+}
+
+.detalhes-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: var(--txt-principal);
+}
+
+.detalhes-info h1 {
+    font-size: 46px;
+    color: var(--txt-destacado);
+    margin: 0;
+}
+
+.tags-filme {
+    display: flex;
+    gap: 12px;
+}
+
+.tag-info {
+    background-color: transparent;
+    border: 1px solid var(--txt-secundario);
+    color: var(--txt-secundario);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.categorias-box h3,
+.sinopse-box h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--txt-principal);
+}
+
+.lista-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tag-categoria {
+    background-color: var(--primary);
+    color: var(--bg);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.sinopse-box p {
+    line-height: 1.6;
+    font-size: 16px;
+    color: var(--txt-secundario);
+    text-align: justify;
+}
+
+/* =========================================
+   MODO DE ALTO CONTRASTE
+========================================= */
+.modo-alto-contraste {
+    background-color: #000000 !important;
+}
+
+.modo-alto-contraste .detalhes-conteudo {
+    background-color: #000000 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.modo-alto-contraste h1,
+.modo-alto-contraste h3,
+.modo-alto-contraste p,
+.modo-alto-contraste .botao-voltar,
+.modo-alto-contraste .tag-info {
+    color: #ffffff !important;
+}
+
+.modo-alto-contraste .tag-info {
+    border-color: #ffffff !important;
+}
+
+.modo-alto-contraste .tag-categoria {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}

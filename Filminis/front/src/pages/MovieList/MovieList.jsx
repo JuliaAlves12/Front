@@ -3,6 +3,7 @@ import { buscarFilmes } from "../../services/api";
 import "./movieList.css";
 import NavBar from "../../../components/navBar/navBar";
 import Card from "../../../components/card/card";
+import Footer from "../../../components/Footer/Footer"; // Importação do novo rodapé
 
 export default function MovieList({ logOut }) {
     const [filmes, setFilmes] = useState([]);
@@ -10,7 +11,7 @@ export default function MovieList({ logOut }) {
     const [loading, setLoading] = useState(true);
     const [altoContraste, setAltoContraste] = useState(false);
     const [busca, setBusca] = useState("");
-    const [generoSelecionado, setGeneroSelecionado] = useState("Todos");
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todas");
     const [menuAberto, setMenuAberto] = useState(false);
 
     useEffect(() => {
@@ -35,8 +36,8 @@ export default function MovieList({ logOut }) {
         return <p className="status error">{error}</p>;
     }
 
-    const selecionarGenero = (genero) => {
-        setGeneroSelecionado(genero);
+    const selecionarCategoria = (categoria) => {
+        setCategoriaSelecionada(categoria);
         setMenuAberto(false);
     };
 
@@ -66,24 +67,25 @@ export default function MovieList({ logOut }) {
                             onClick={() => setMenuAberto(!menuAberto)}
                         >
                             <div className="display-filtro">
-                                {generoSelecionado === "Todos" ? (
+                                {categoriaSelecionada === "Todas" ? (
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <line x1="4" y1="6" x2="20" y2="6"></line>
                                         <line x1="7" y1="12" x2="17" y2="12"></line>
                                         <line x1="10" y1="18" x2="14" y2="18"></line>
                                     </svg>
                                 ) : (
-                                    generoSelecionado
+                                    categoriaSelecionada
                                 )}
                             </div>
 
                             {menuAberto && (
                                 <ul className="menu-filtro-customizado">
-                                    <li onClick={() => selecionarGenero("Todos")}>Todos os Gêneros</li>
-                                    <li onClick={() => selecionarGenero("Ação")}>Ação</li>
-                                    <li onClick={() => selecionarGenero("Animação")}>Animação</li>
-                                    <li onClick={() => selecionarGenero("Terror")}>Terror</li>
-                                    <li onClick={() => selecionarGenero("Romance")}>Romance</li>
+                                    <li onClick={() => selecionarCategoria("Todas")}>Todas as Categorias</li>
+                                    <li onClick={() => selecionarCategoria("Ação")}>Ação</li>
+                                    <li onClick={() => selecionarCategoria("Animação")}>Animação</li>
+                                    <li onClick={() => selecionarCategoria("Terror")}>Terror</li>
+                                    <li onClick={() => selecionarCategoria("Romance")}>Romance</li>
+                                    <li onClick={() => selecionarCategoria("Ficção Científica")}>Ficção Científica</li>
                                 </ul>
                             )}
                         </div>
@@ -94,12 +96,15 @@ export default function MovieList({ logOut }) {
                     {filmes
                         .filter((film) => {
                             const bateTexto = film.titulo.toLowerCase().includes(busca.toLowerCase());
-                            const bateGenero = generoSelecionado === "Todos" || film.genero === generoSelecionado;
-                            return bateTexto && bateGenero;
+                            
+                            const bateCategoria = categoriaSelecionada === "Todas" || 
+                                                (film.categorias && film.categorias.includes(categoriaSelecionada));
+                                                
+                            return bateTexto && bateCategoria;
                         })
                         .map((film) => (
                             <article className="filme-card" key={film.id}>
-                                <img src={film.imagem} alt={`Poster do filme ${film.titulo}`} />
+                                <img src={film.poster || film.imagem} alt={`Poster do filme ${film.titulo}`} />
                                 <div className="filme-info">
                                     <h3>{film.titulo}</h3>
                                     <p>{film.ano}</p>
@@ -110,6 +115,9 @@ export default function MovieList({ logOut }) {
                     }
                 </div>
             </section>
+
+            {/* Inclusão do rodapé no final da página */}
+            <Footer logOut={logOut} />
         </div>
     );
 }
