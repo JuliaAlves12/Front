@@ -29,6 +29,7 @@
 
 .formulario-layout-duplo {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     background-color: var(--superficie-cards);
     padding: 40px;
@@ -171,8 +172,10 @@ textarea {
 }
 
 .area-botao {
+    flex-basis: 100%;
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     margin-top: 10px;
     padding-top: 20px;

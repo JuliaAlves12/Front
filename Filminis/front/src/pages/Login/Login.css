@@ -20,7 +20,7 @@
     width: 100%;
     max-width: 450px;
     box-shadow: 0 10px 30px var(--sombra-padrao);
-    border: 1px solid var(--borda-suave);
+    border: 1px solid var(--superficie-cards-border);
     display: flex;
     flex-direction: column;
     gap: 24px;
