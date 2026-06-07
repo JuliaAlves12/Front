@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../../../components/navBar/navBar";
-import Footer from "../../../components/Footer/Footer";
+import Footer from "../../../components/footer/Footer";
 import { buscarPerfil, atualizarFotoPerfil } from "../../services/api";
 import "./Perfil.css";
 
@@ -20,7 +20,7 @@ export default function Perfil({ logOut }) {
         try {
             const dados = await buscarPerfil(token);
             setPerfil(dados);
-        } catch (error) {
+        } catch {
             setErro("Não foi possível carregar os dados do perfil.");
         } finally {
             setLoading(false);
@@ -67,10 +67,9 @@ export default function Perfil({ logOut }) {
 
     return (
         <div className={altoContraste ? "pagina-perfil modo-alto-contraste" : "pagina-perfil"}>
-            <NavBar 
-                logOut={logOut} 
-                funcaoContraste={() => setAltoContraste(!altoContraste)} 
-                estaAtivo={altoContraste} 
+            <NavBar
+                funcaoContraste={() => setAltoContraste(!altoContraste)}
+                estaAtivo={altoContraste}
             />
 
             <main className="perfil-container">

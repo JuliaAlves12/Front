@@ -103,7 +103,7 @@ export default function Movie() {
             try {
                 const decodificado = JSON.parse(dadosBrutos);
                 dadosBrutos = Array.isArray(decodificado) ? decodificado : dadosBrutos.split(',');
-            } catch (e) {
+            } catch {
                 dadosBrutos = dadosBrutos.split(',');
             }
         }
@@ -116,7 +116,7 @@ export default function Movie() {
                             try {
                                 const parsed = JSON.parse(cat);
                                 return parsed.nome || parsed.valor || '';
-                            } catch (e) {}
+                            } catch { /* não era JSON, mantém o texto cru */ }
                         }
                         return cat.trim();
                     }
@@ -183,16 +183,16 @@ export default function Movie() {
                                     {isFavorito ? "Favoritado" : "Favoritar"}
                                 </button>
 
+                                <Link to={`/edit-movie?id=${id}`} className="botao-editar-filme">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: "8px"}}>
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                    </svg>
+                                    {eAdmin ? "Editar Filme" : "Pedir Edição"}
+                                </Link>
+
                                 {eAdmin && (
                                     <>
-                                        <Link to={`/edit-movie?id=${id}`} className="botao-editar-filme">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: "8px"}}>
-                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                            </svg>
-                                            Editar Filme
-                                        </Link>
-
                                         <button className="botao-deletar-filme" onClick={handleDeletar}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: "8px"}}>
                                                 <polyline points="3 6 5 6 21 6"></polyline>

@@ -151,9 +151,90 @@
     border: 1px solid var(--erro-txt);
 }
 
-.modo-alto-contraste .card-pendente {
+.titulo-secao-admin {
+    color: var(--txt-destacado);
+    font-size: 22px;
+    margin: 36px 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--superficie-cards-border);
+}
+
+.card-edicao {
+    background-color: var(--superficie-cards);
+    border: 1px solid var(--superficie-cards-border);
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px var(--sombra-padrao);
+}
+
+.card-edicao h3 {
+    color: var(--txt-principal);
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+
+.comparacao-edicao {
+    margin: 16px 0 20px 0;
+    border: 1px solid var(--superficie-cards-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.comparacao-cabecalho,
+.comparacao-linha {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr;
+    gap: 12px;
+    padding: 10px 14px;
+}
+
+.comparacao-cabecalho {
+    background-color: var(--bg);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--txt-secundario);
+}
+
+.comparacao-linha {
+    border-top: 1px solid var(--superficie-cards-border);
+    font-size: 14px;
+    color: var(--txt-secundario);
+    word-break: break-word;
+}
+
+.comparacao-linha .comp-campo {
+    font-weight: bold;
+    color: var(--txt-principal);
+}
+
+/* Destaca as linhas que realmente mudaram */
+.comparacao-linha.mudou {
+    background-color: var(--primary-transparente);
+}
+
+.comparacao-linha.mudou .comp-antes {
+    color: var(--erro-txt);
+    text-decoration: line-through;
+}
+
+.comparacao-linha.mudou .comp-depois {
+    color: var(--sucesso-txt);
+    font-weight: bold;
+}
+
+.modo-alto-contraste .card-pendente,
+.modo-alto-contraste .card-edicao,
+.modo-alto-contraste .comparacao-edicao {
     background-color: var(--ac-bg) !important;
     border: 2px solid var(--ac-txt) !important;
+}
+
+.modo-alto-contraste .comparacao-linha.mudou,
+.modo-alto-contraste .comparacao-linha.mudou .comp-antes,
+.modo-alto-contraste .comparacao-linha.mudou .comp-depois {
+    background-color: var(--ac-bg) !important;
+    color: var(--ac-txt) !important;
 }
 
 .modo-alto-contraste h2, 

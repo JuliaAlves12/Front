@@ -40,10 +40,9 @@ export default function Register() {
 
     return (
         <div className={altoContraste ? "pagina-cadastro modo-alto-contraste" : "pagina-cadastro"}>
-            <NavBar 
-                funcaoContraste={() => setAltoContraste(!altoContraste)} 
-                estaAtivo={altoContraste} 
-                estaNoLogin={true} 
+            <NavBar
+                funcaoContraste={() => setAltoContraste(!altoContraste)}
+                estaAtivo={altoContraste}
             />
 
             <main className="cadastro-container">

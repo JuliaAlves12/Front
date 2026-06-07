@@ -337,4 +337,4 @@ def patch_Filme(handler):
     if "produtoras" in data:
         patchRelacionamento(id_filme, "filme_produtora", "id_produtora", data["produtoras"])
 
-    handler._send_json({"message": "Filme edited com sucesso"})
+    handler._send_json({"message": "Filme editado com sucesso"})

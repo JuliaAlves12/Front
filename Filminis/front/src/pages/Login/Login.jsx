@@ -21,16 +21,12 @@ export default function Login({ setToken, setRole }) {
         try {
             const dados = await loginUsuario(email, senha);
 
-            console.log("Resposta bruta do servidor no Login:", dados);
-
             if (!dados) {
                 throw new Error("E-mail ou senha incorretos!");
             }
 
             const tokenRecebido = dados.access_token || dados.token; 
             const roleRecebida = dados.role || dados.tipo_usuario || "user";
-
-            console.log("Role final que o React vai guardar:", roleRecebida);
 
             localStorage.setItem("access_token", tokenRecebido);
             localStorage.setItem("user_role", roleRecebida);

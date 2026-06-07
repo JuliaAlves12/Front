@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../../components/navBar/navBar";
-import Footer from "../../../components/Footer/Footer";
-import "./addMovie.css";
+import Footer from "../../../components/footer/Footer";
+import { buscarDadosAuxiliares, adicionarFilme } from "../../services/api";
+import "./AddMovie.css";
 
 export default function AddMovie({ logOut }) {
     const navigate = useNavigate();
@@ -35,14 +36,7 @@ export default function AddMovie({ logOut }) {
             const novasListas = {};
 
             for (let ep of endpoints) {
-                try {
-                    const res = await fetch(`http://localhost:8000/${ep}`); 
-                    const data = await res.json();
-                    novasListas[ep] = data;
-                } catch (error) {
-                    console.error(error);
-                    novasListas[ep] = [];
-                }
+                novasListas[ep] = await buscarDadosAuxiliares(ep);
             }
             setDbListas(novasListas);
         };
@@ -91,18 +85,7 @@ export default function AddMovie({ logOut }) {
         };
 
         try {
-            const response = await fetch("http://localhost:8000/cadastrani", { 
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify(filmeDados)
-            });
-
-            const dados = await response.json();
-
-            if (!response.ok) throw new Error(dados.error || "Erro ao cadastrar.");
+            const dados = await adicionarFilme(filmeDados, token);
 
             setMensagem({ texto: dados.message || "Sucesso!", tipo: "sucesso" });
 
@@ -121,10 +104,9 @@ export default function AddMovie({ logOut }) {
 
     return (
         <div className={altoContraste ? "pagina-add-movie modo-alto-contraste" : "pagina-add-movie"}>
-            <NavBar 
-                logOut={logOut} 
-                funcaoContraste={() => setAltoContraste(!altoContraste)} 
-                estaAtivo={altoContraste} 
+            <NavBar
+                funcaoContraste={() => setAltoContraste(!altoContraste)}
+                estaAtivo={altoContraste}
             />
 
             <main className="form-container">

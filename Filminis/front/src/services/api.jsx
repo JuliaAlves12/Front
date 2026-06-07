@@ -123,7 +123,7 @@ export async function buscarFilmesPendentes(token) {
 
 export async function aprovarFilme(idFilme, token) {
     try {
-        const resposta = await fetch(`${API_URL}/aprovafilme/${idFilme}`, {
+        const resposta = await fetch(`${API_URL}/aprovafilme?id=${idFilme}`, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`,
