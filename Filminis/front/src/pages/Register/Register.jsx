@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { registrarUsuario } from "../../services/api";
 import NavBar from "../../../components/navBar/navBar";
-import "./Register.css"; // Garantindo o import correto!
+import "./Register.css";
 
 export default function Register() {
     const navigate = useNavigate();
@@ -39,7 +39,6 @@ export default function Register() {
     };
 
     return (
-        // Atualizado para a classe pagina-cadastro
         <div className={altoContraste ? "pagina-cadastro modo-alto-contraste" : "pagina-cadastro"}>
             <NavBar 
                 funcaoContraste={() => setAltoContraste(!altoContraste)} 
@@ -48,13 +47,11 @@ export default function Register() {
             />
 
             <main className="cadastro-container">
-                {/* Atualizado para a classe cadastro-form */}
                 <form className="cadastro-form" onSubmit={handleRegister}>
                     <h2>Criar Conta</h2>
                     
                     {erro && <p className="mensagem-erro">{erro}</p>}
 
-                    {/* AQUI ESTAVA O ERRO! Substituímos o style inline pela classe linha-inputs */}
                     <div className="linha-inputs">
                         <div className="grupo-input">
                             <label>Nome</label>
@@ -81,7 +78,6 @@ export default function Register() {
                         <input type="date" name="data_nascimento" required onChange={handleChange} />
                     </div>
 
-                    {/* Atualizado para a classe botao-cadastrar */}
                     <button type="submit" className="botao-cadastrar" disabled={loading}>
                         {loading ? "Criando conta..." : "Cadastrar"}
                     </button>

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Não esqueça do Link aqui!
+import { useNavigate, Link } from "react-router-dom";
 import { loginUsuario } from "../../services/api";
 import NavBar from "../../../components/navBar/navBar";
-import "./login.css";
+import "./Login.css";
 
 export default function Login({ setToken, setRole }) {
     const [email, setEmail] = useState("");
@@ -11,16 +11,17 @@ export default function Login({ setToken, setRole }) {
     const [loading, setLoading] = useState(false);
     const [altoContraste, setAltoContraste] = useState(false);
     
-    // O useNavigate é o nosso "motorista", ele leva o usuário pra outra tela
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
-        e.preventDefault(); // Evita que a página recarregue ao enviar o formulário
+        e.preventDefault();
         setLoading(true);
         setErro("");
 
         try {
             const dados = await loginUsuario(email, senha);
+
+            console.log("Resposta bruta do servidor no Login:", dados);
 
             if (!dados) {
                 throw new Error("E-mail ou senha incorretos!");
@@ -29,15 +30,14 @@ export default function Login({ setToken, setRole }) {
             const tokenRecebido = dados.access_token || dados.token; 
             const roleRecebida = dados.role || dados.tipo_usuario || "user";
 
-            // Salva no navegador para não deslogar quando der F5
+            console.log("Role final que o React vai guardar:", roleRecebida);
+
             localStorage.setItem("access_token", tokenRecebido);
             localStorage.setItem("user_role", roleRecebida);
 
-            // Atualiza o App.jsx para liberar as rotas
             setToken(tokenRecebido);
             setRole(roleRecebida);
 
-            // Manda o usuário de volta para a tela inicial
             navigate("/");
 
         } catch (error) {
@@ -88,7 +88,6 @@ export default function Login({ setToken, setRole }) {
                         {loading ? "Entrando..." : "Entrar"}
                     </button>
 
-                    {/* O nosso atalho para a página de Cadastro fica aqui! */}
                     <p style={{ textAlign: "center", marginTop: "16px", color: "var(--txt-secundario)", fontSize: "14px" }}>
                         Ainda não tem conta? <Link to="/register" style={{ color: "var(--primary)", fontWeight: "bold", textDecoration: "none" }}>Cadastre-se</Link>
                     </p>

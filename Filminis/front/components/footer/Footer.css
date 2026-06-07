@@ -43,10 +43,3 @@
 .botao-logout-footer:active {
     transform: scale(0.95);
 }
-
-@media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-    }
-}

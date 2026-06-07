@@ -3,19 +3,24 @@ import { buscarFilmes } from "../../services/api";
 import "./movieList.css";
 import NavBar from "../../../components/navBar/navBar";
 import Card from "../../../components/card/card";
-import Footer from "../../../components/Footer/Footer"; // Importação do novo rodapé
+import Footer from "../../../components/Footer/Footer";
 
 export default function MovieList({ logOut }) {
     const [filmes, setFilmes] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const [altoContraste, setAltoContraste] = useState(false);
+    
     const [busca, setBusca] = useState("");
-    const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todas");
-    const [menuAberto, setMenuAberto] = useState(false);
+    const [filtrosAbertos, setFiltrosAbertos] = useState(false);
+    
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
+    const [anoSelecionado, setAnoSelecionado] = useState("");
+    const [diretorBusca, setDiretorBusca] = useState("");
+    const [atorBusca, setAtorBusca] = useState("");
 
     useEffect(() => {
-        async function carregaFilme() {
+        async function legendaCarregar() {
             try {
                 const dados = await buscarFilmes();
                 setFilmes(dados);
@@ -25,7 +30,7 @@ export default function MovieList({ logOut }) {
                 setLoading(false);
             }
         }
-        carregaFilme();
+        legendaCarregar();
     }, []);
 
     if (loading) {
@@ -36,10 +41,27 @@ export default function MovieList({ logOut }) {
         return <p className="status error">{error}</p>;
     }
 
-    const selecionarCategoria = (categoria) => {
-        setCategoriaSelecionada(categoria);
-        setMenuAberto(false);
+    const limparFiltros = () => {
+        setBusca("");
+        setCategoriaSelecionada("");
+        setAnoSelecionado("");
+        setDiretorBusca("");
+        setAtorBusca("");
     };
+
+    const anosDisponiveis = [...new Set(filmes.map(f => f.ano))].sort((a, b) => b - a);
+
+    const filmesFiltrados = filmes.filter((film) => {
+        const dadosCompletosString = JSON.stringify(film).toLowerCase();
+        
+        const bateTexto = film.titulo.toLowerCase().includes(busca.toLowerCase());
+        const bateCategoria = !categoriaSelecionada || (film.categorias && film.categorias.includes(categoriaSelecionada));
+        const bateAno = !anoSelecionado || String(film.ano) === anoSelecionado;
+        const bateDiretor = !diretorBusca || (film.diretores && dadosCompletosString.includes(diretorBusca.toLowerCase()));
+        const bateAtor = !atorBusca || (film.atores && dadosCompletosString.includes(atorBusca.toLowerCase()));
+        
+        return bateTexto && bateCategoria && bateAno && bateDiretor && bateAtor;
+    });
 
     return (
         <div className={altoContraste ? "pagina-vitrine modo-alto-contraste" : "pagina-vitrine"}>
@@ -53,56 +75,84 @@ export default function MovieList({ logOut }) {
                 <div className="topo-secao">
                     <h2>Catálogo de Filmes</h2>
                     
-                    <div className="barra-pesquisa-composta">
-                        <input 
-                            type="text" 
-                            className="campo-busca" 
-                            placeholder="Buscar filme..." 
-                            value={busca}
-                            onChange={(e) => setBusca(e.target.value)} 
-                        />
+                    <div className="area-buscas">
+                        <div className="barra-pesquisa-composta">
+                            <input 
+                                type="text" 
+                                className="campo-busca" 
+                                placeholder="Buscar filme pelo título..." 
+                                value={busca}
+                                onChange={(e) => setBusca(e.target.value)} 
+                            />
 
-                        <div 
-                            className="wrapper-filtro" 
-                            onClick={() => setMenuAberto(!menuAberto)}
-                        >
-                            <div className="display-filtro">
-                                {categoriaSelecionada === "Todas" ? (
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="4" y1="6" x2="20" y2="6"></line>
-                                        <line x1="7" y1="12" x2="17" y2="12"></line>
-                                        <line x1="10" y1="18" x2="14" y2="18"></line>
-                                    </svg>
-                                ) : (
-                                    categoriaSelecionada
-                                )}
-                            </div>
-
-                            {menuAberto && (
-                                <ul className="menu-filtro-customizado">
-                                    <li onClick={() => selecionarCategoria("Todas")}>Todas as Categorias</li>
-                                    <li onClick={() => selecionarCategoria("Ação")}>Ação</li>
-                                    <li onClick={() => selecionarCategoria("Animação")}>Animação</li>
-                                    <li onClick={() => selecionarCategoria("Terror")}>Terror</li>
-                                    <li onClick={() => selecionarCategoria("Romance")}>Romance</li>
-                                    <li onClick={() => selecionarCategoria("Ficção Científica")}>Ficção Científica</li>
-                                </ul>
-                            )}
+                            <button 
+                                className="botao-abrir-filtros" 
+                                onClick={() => setFiltrosAbertos(!filtrosAbertos)}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                                </svg>
+                                Filtros
+                            </button>
                         </div>
+
+                        {filtrosAbertos && (
+                            <div className="painel-filtros">
+                                <div className="grupo-filtro">
+                                    <label>Categoria</label>
+                                    <select value={categoriaSelecionada} onChange={(e) => setCategoriaSelecionada(e.target.value)}>
+                                        <option value="">Todas</option>
+                                        <option value="Ação">Ação</option>
+                                        <option value="Animação">Animação</option>
+                                        <option value="Comédia">Comédia</option>
+                                        <option value="Drama">Drama</option>
+                                        <option value="Ficção Científica">Ficção Científica</option>
+                                        <option value="Romance">Romance</option>
+                                        <option value="Terror">Terror</option>
+                                    </select>
+                                </div>
+
+                                <div className="grupo-filtro">
+                                    <label>Ano de Lançamento</label>
+                                    <select value={anoSelecionado} onChange={(e) => setAnoSelecionado(e.target.value)}>
+                                        <option value="">Todos os Anos</option>
+                                        {anosDisponiveis.map(ano => (
+                                            <option key={ano} value={ano}>{ano}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="grupo-filtro">
+                                    <label>Diretor</label>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Nome do diretor..." 
+                                        value={diretorBusca}
+                                        onChange={(e) => setDiretorBusca(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="grupo-filtro">
+                                    <label>Ator / Atriz</label>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Nome do ator..." 
+                                        value={atorBusca}
+                                        onChange={(e) => setAtorBusca(e.target.value)}
+                                    />
+                                </div>
+
+                                <button className="botao-limpar-filtros" onClick={limparFiltros}>
+                                    Limpar
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
 
                 <div className="filme-grid">
-                    {filmes
-                        .filter((film) => {
-                            const bateTexto = film.titulo.toLowerCase().includes(busca.toLowerCase());
-                            
-                            const bateCategoria = categoriaSelecionada === "Todas" || 
-                                                (film.categorias && film.categorias.includes(categoriaSelecionada));
-                                                
-                            return bateTexto && bateCategoria;
-                        })
-                        .map((film) => (
+                    {filmesFiltrados.length > 0 ? (
+                        filmesFiltrados.map((film) => (
                             <article className="filme-card" key={film.id}>
                                 <img src={film.poster || film.imagem} alt={`Poster do filme ${film.titulo}`} />
                                 <div className="filme-info">
@@ -112,11 +162,14 @@ export default function MovieList({ logOut }) {
                                 </div>
                             </article>
                         ))
-                    }
+                    ) : (
+                        <p style={{ gridColumn: "1 / -1", textAlign: "center", padding: "40px", color: "var(--txt-secundario)" }}>
+                            Nenhum filme encontrado com esses filtros.
+                        </p>
+                    )}
                 </div>
             </section>
 
-            {/* Inclusão do rodapé no final da página */}
             <Footer logOut={logOut} />
         </div>
     );

@@ -1,39 +1,85 @@
 import { useState, useEffect } from "react";
-import { buscarFilmesPendentes, aprovarFilme } from "../../services/api";
 import NavBar from "../../../components/navBar/navBar";
+import Footer from "../../../components/Footer/Footer";
 import "./AdminPainel.css";
 
 export default function AdminPainel({ logOut }) {
-    const [filmes, setFilmes] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [mensagem, setMensagem] = useState("");
+    const [filmesPendentes, setFilmesPendentes] = useState([]);
     const [altoContraste, setAltoContraste] = useState(false);
-    
+    const [mensagem, setMensagem] = useState({ texto: "", tipo: "" });
+
     const token = localStorage.getItem("access_token");
+
+    const carregarPendentes = async () => {
+        try {
+            const res = await fetch("http://localhost:8000/filmes-pendentes", {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await res.json();
+            
+            if (res.ok) {
+                setFilmesPendentes(data);
+            } else {
+                console.error(data.error);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
         carregarPendentes();
     }, []);
 
-    const carregarPendentes = async () => {
+    const handleAprovar = async (id) => {
         try {
-            const dados = await buscarFilmesPendentes(token);
-            setFilmes(dados);
+            const res = await fetch(`http://localhost:8000/aprovafilme?id=${id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                setMensagem({ texto: "Filme aprovado! Ele já foi para o catálogo principal.", tipo: "sucesso" });
+                setFilmesPendentes(filmesPendentes.filter(filme => filme.id !== id));
+            } else {
+                setMensagem({ texto: data.error || "Erro ao aprovar.", tipo: "erro" });
+            }
         } catch (error) {
-            setMensagem("Erro ao buscar filmes pendentes ou você não tem permissão.");
-        } finally {
-            setLoading(false);
+            setMensagem({ texto: "Erro ao conectar com o servidor.", tipo: "erro" });
         }
+
+        setTimeout(() => setMensagem({ texto: "", tipo: "" }), 3000);
     };
 
-    const handleAprovar = async (idFilme) => {
+    const handleReprovar = async (id) => {
+        const confirmar = window.confirm("Tem certeza que deseja reprovar e excluir este filme permanentemente?");
+        if (!confirmar) return;
+
         try {
-            await aprovarFilme(idFilme, token);
-            setFilmes(filmes.filter(filme => filme.id_filme !== idFilme));
-            alert("Filme aprovado com sucesso! 🎉");
+            const res = await fetch(`http://localhost:8000/filme?id=${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                setMensagem({ texto: "Filme reprovado e removido do sistema.", tipo: "sucesso" });
+                setFilmesPendentes(filmesPendentes.filter(filme => filme.id !== id));
+            } else {
+                setMensagem({ texto: data.error || "Erro ao reprovar.", tipo: "erro" });
+            }
         } catch (error) {
-            alert("Erro ao aprovar o filme.");
+            setMensagem({ texto: "Erro ao conectar com o servidor.", tipo: "erro" });
         }
+
+        setTimeout(() => setMensagem({ texto: "", tipo: "" }), 3000);
     };
 
     return (
@@ -46,36 +92,54 @@ export default function AdminPainel({ logOut }) {
 
             <main className="admin-container">
                 <div className="topo-admin">
-                    <h2>Painel de Aprovação</h2>
-                    <p>Gerencie os filmes cadastrados pelos usuários comuns.</p>
+                    <h2>Painel de Moderação</h2>
+                    <p>Gerencie os filmes enviados pelos usuários antes que eles fiquem visíveis no catálogo.</p>
                 </div>
 
-                {mensagem && <p className="mensagem-erro-admin">{mensagem}</p>}
-                
-                {loading ? (
-                    <p className="status-admin">Carregando filmes pendentes...</p>
-                ) : filmes.length === 0 ? (
-                    <p className="status-admin">Nenhum filme pendente de aprovação no momento! 🍿</p>
+                {mensagem.texto && (
+                    <div className={`alerta-admin alert-${mensagem.tipo}`}>{mensagem.texto}</div>
+                )}
+
+                {filmesPendentes.length === 0 ? (
+                    <div className="sem-pendentes">
+                        <p>Nenhum filme aguardando aprovação no momento!</p>
+                    </div>
                 ) : (
                     <div className="grid-pendentes">
-                        {filmes.map((filme) => (
-                            <div key={filme.id_filme} className="card-pendente">
-                                <img src={filme.poster} alt={filme.titulo} />
+                        {filmesPendentes.map((filme) => (
+                            <div key={filme.id} className="card-pendente">
+                                <img 
+                                    src={filme.imagem || "https://via.placeholder.com/150"} 
+                                    alt={filme.titulo} 
+                                    className="poster-pendente" 
+                                />
                                 <div className="info-pendente">
                                     <h3>{filme.titulo}</h3>
-                                    <p>{filme.ano}</p>
-                                    <button 
-                                        className="botao-aprovar" 
-                                        onClick={() => handleAprovar(filme.id_filme)}
-                                    >
-                                        Aprovar Filme
-                                    </button>
+                                    <p className="ano-pendente">{filme.ano} • {filme.duracao}</p>
+                                    <p className="sinopse-pendente">{filme.sinopse}</p>
+                                    
+                                    <div className="botoes-acoes">
+                                        <button 
+                                            className="botao-aprovar" 
+                                            onClick={() => handleAprovar(filme.id)}
+                                        >
+                                            Aprovar e Publicar
+                                        </button>
+                                        <button 
+                                            className="botao-reprovar" 
+                                            onClick={() => handleReprovar(filme.id)}
+                                        >
+                                            Reprovar Filme
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 )}
             </main>
+
+            <Footer logOut={logOut} />
         </div>
     );
 }

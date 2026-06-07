@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@700&display=swap');
 
 :root {
-  /* === CORES PRINCIPAIS === */
   --bg: #08040f;
   --superficie-cards: #1A0E23;
   --superficie-cards-border: #321747;
@@ -10,12 +9,10 @@
   --botao-claro-bg: #ffffff;
   --botao-claro-txt: #000000;
   
-  /* === TEXTOS === */
   --txt-destacado: #D8C4FF;
   --txt-principal: #F5F0FF;
   --txt-secundario: #A89BB8;
   
-  /* === ESTADOS E AÇÕES === */
   --primary-hover: var(--brilhos);
   --primary-transparente: rgba(157, 78, 221, 0.15);
   
@@ -26,12 +23,10 @@
   --sucesso-txt: #00e676;
   --sucesso-bg: rgba(0, 200, 83, 0.1);
   
-  /* === SOMBRAS === */
   --sombra-padrao: rgba(0, 0, 0, 0.5);
   --sombra-foco: rgba(181, 123, 255, 0.25);
   --sombra-botao-brilho: rgba(157, 78, 221, 0.35);
   
-  /* === ALTO CONTRASTE === */
   --ac-bg: #000000;
   --ac-txt: #ffffff;
   --ac-accent: #ffff00;

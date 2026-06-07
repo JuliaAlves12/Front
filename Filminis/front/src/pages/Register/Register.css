@@ -15,15 +15,15 @@
 
 .cadastro-form {
     background-color: var(--superficie-cards);
-    padding: 48px; /* Reduzido para um respiro elegante, sem exagero */
+    padding: 48px; 
     border-radius: 20px;
     width: 100%;
-    max-width: 600px;  /* O meio-termo perfeito! */
+    max-width: 600px;  
     box-shadow: 0 10px 30px var(--sombra-padrao);
     border: 1px solid var(--superficie-cards-border);
     display: flex;
     flex-direction: column;
-    gap: 24px; /* Espaçamento ideal entre as linhas */
+    gap: 24px; 
 }
 
 .cadastro-form h2 {
@@ -46,7 +46,7 @@
 .linha-inputs {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px; /* Mantém Nome e Sobrenome alinhados e próximos */
+    gap: 20px; 
 }
 
 .grupo-input {
@@ -89,9 +89,9 @@
     border: none;
     padding: 16px; 
     border-radius: 8px;
-    font-size: 16px; /* O mesmo tamanho exato */
+    font-size: 16px; 
     font-weight: bold;
-    font-family: inherit; /* Garante que puxe a fonte Inter do site */
+    font-family: inherit; 
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.2s, transform 0.1s;
@@ -110,23 +110,6 @@
     cursor: not-allowed;
 }
 
-/* =========================================
-   RESPONSIVIDADE (Para Celulares)
-========================================= */
-@media (max-width: 600px) {
-    .linha-inputs {
-        grid-template-columns: 1fr; 
-        gap: 20px;
-    }
-    
-    .cadastro-form {
-        padding: 30px 20px; 
-    }
-}
-
-/* =========================================
-   MODO DE ALTO CONTRASTE 
-========================================= */
 .modo-alto-contraste {
     background-color: var(--ac-bg) !important;
 }

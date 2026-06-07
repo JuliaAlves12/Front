@@ -1,4 +1,4 @@
-.pagina-add-movie {
+.pagina-edit-movie {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -10,6 +10,13 @@
     max-width: 1080px;
     margin: 40px auto;
     padding: 0 40px;
+}
+
+.status {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 40px;
+    color: var(--txt-principal);
 }
 
 .topo-form {
@@ -25,6 +32,7 @@
 
 .topo-form p {
     color: var(--txt-secundario);
+    margin: 0;
 }
 
 .formulario-layout-duplo {
@@ -37,7 +45,8 @@
     box-shadow: 0 4px 20px var(--sombra-padrao);
 }
 
-.coluna-esquerda {
+.coluna-esquerda,
+.coluna-direita {
     flex: 1;
     min-width: 300px;
     display: flex;
@@ -45,15 +54,8 @@
     gap: 20px;
 }
 
-.coluna-direita {
-    flex: 1; 
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.coluna-esquerda h3, .coluna-direita h3 {
+.coluna-esquerda h3, 
+.coluna-direita h3 {
     color: var(--brilhos);
     margin-bottom: 5px;
     border-bottom: 1px solid var(--superficie-cards-border);
@@ -81,13 +83,14 @@
     width: 100%;
 }
 
-label {
+.grupo-input label {
     font-weight: 600;
     color: var(--txt-principal);
     font-size: 14px;
 }
 
-.grupo-input input, .grupo-input textarea {
+.grupo-input input, 
+.grupo-input textarea {
     background-color: var(--bg);
     border: 1px solid var(--superficie-cards-border);
     color: var(--txt-principal);
@@ -96,10 +99,11 @@ label {
     font-family: inherit;
     font-size: 14px;
     width: 100%;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.grupo-input input:focus, .grupo-input textarea:focus {
+.grupo-input input:focus, 
+.grupo-input textarea:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 8px var(--sombra-foco);
@@ -123,18 +127,21 @@ textarea {
 
 .grupo-hibrido label {
     margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--txt-principal);
+    font-size: 14px;
 }
 
 .grupo-hibrido select[multiple] {
     background-color: var(--bg);
     border: 1px solid var(--superficie-cards-border);
     color: var(--txt-principal);
-    padding: 6px;
-    height: 90px;
+    padding: 8px;
+    height: 120px;
     width: 100%;
     font-family: inherit;
     font-size: 13px;
-    border-radius: 8px 8px 0 0; 
+    border-radius: 8px; 
 }
 
 .grupo-hibrido select[multiple]:focus {
@@ -150,24 +157,7 @@ textarea {
 
 .grupo-hibrido select[multiple] option:checked {
     background-color: var(--primary);
-    color: var(--txt-principal);
-}
-
-.grupo-hibrido input {
-    background-color: var(--bg);
-    border: 1px solid var(--superficie-cards-border);
-    border-top: none; 
-    color: var(--txt-principal);
-    padding: 10px;
-    width: 100%;
-    font-family: inherit;
-    font-size: 13px;
-    border-radius: 0 0 8px 8px;
-}
-
-.grupo-hibrido input:focus {
-    outline: none;
-    border-color: var(--primary);
+    color: var(--bg);
 }
 
 .area-botao {
@@ -191,7 +181,12 @@ textarea {
     transition: all 0.3s ease;
 }
 
-.botao-submit-filme:hover {
+.botao-submit-filme:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.botao-submit-filme:not(:disabled):hover {
     background-color: var(--primary-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px var(--sombra-foco);
@@ -217,16 +212,27 @@ textarea {
     border: 1px solid var(--erro-txt);
 }
 
+/* MODO ALTO CONTRASTE */
+.modo-alto-contraste {
+    background-color: var(--ac-bg) !important;
+}
+
 .modo-alto-contraste .formulario-layout-duplo {
     background-color: var(--ac-bg) !important;
     border: 2px solid var(--ac-txt) !important;
+    box-shadow: none !important;
 }
 
-.modo-alto-contraste label, .modo-alto-contraste h3, .modo-alto-contraste p {
+.modo-alto-contraste label, 
+.modo-alto-contraste h3, 
+.modo-alto-contraste p,
+.modo-alto-contraste .status {
     color: var(--ac-txt) !important;
 }
 
-.modo-alto-contraste input, .modo-alto-contraste textarea, .modo-alto-contraste select {
+.modo-alto-contraste input, 
+.modo-alto-contraste textarea, 
+.modo-alto-contraste select {
     background-color: var(--ac-bg) !important;
     border: 2px solid var(--ac-txt) !important;
     color: var(--ac-txt) !important;
@@ -236,4 +242,10 @@ textarea {
     background-color: var(--ac-bg) !important;
     color: var(--ac-txt) !important;
     border: 2px solid var(--ac-txt) !important;
+    box-shadow: none !important;
+}
+
+.modo-alto-contraste .botao-submit-filme:not(:disabled):hover {
+    background-color: var(--ac-txt) !important;
+    color: var(--ac-bg) !important;
 }

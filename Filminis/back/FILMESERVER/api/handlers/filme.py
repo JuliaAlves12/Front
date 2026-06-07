@@ -138,8 +138,8 @@ def post_Cadastrani(handler):
         handler._send_json({"error": "Token inválido ou expirado"}, 401)
         return
 
-    role = payload.get("role")
-    flag = True if role == "admin" else False
+    # FORÇA TUDO PARA ZERO: TODO MUNDO CAI NA FILA DE APROVAÇÃO
+    flag = 0
 
     content_length = int(handler.headers['Content-Length'])
     body = handler.rfile.read(content_length).decode('utf-8')
@@ -203,10 +203,11 @@ def post_Cadastrani(handler):
         flag=flag 
     )
 
+    # A RESPOSTA VEM PARA O FINAL: Só responde DEPOIS que o insertFilminhos rodou!
     handler._send_json({
         "id": resp.get("id") if resp else None,
-        "aprovado": flag,
-        "message": "Filme criado com sucesso" if flag else "Filme enviado para aprovação"
+        "aprovado": False,
+        "message": "Filme enviado para aprovação com sucesso!"
     }, 201)
 
 

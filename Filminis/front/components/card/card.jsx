@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./card.css"; // Isso é obrigatório para o estilo funcionar!
+import "./card.css";
 
 export default function Card({ idFilme }) {
     return (

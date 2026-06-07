@@ -38,7 +38,8 @@ def post_Loginho(handler):
 
         handler._send_json({
             "access_token": access_token,
-            "refresh_token": refresh_token
+            "refresh_token": refresh_token,
+            "role": user["role"] 
         })
     else:
         handler._send_json({"error": "Credenciais inválidas"}, 401)
