@@ -212,7 +212,6 @@ textarea {
     border: 1px solid var(--erro-txt);
 }
 
-/* MODO ALTO CONTRASTE */
 .modo-alto-contraste {
     background-color: var(--ac-bg) !important;
 }

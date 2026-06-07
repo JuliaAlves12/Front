@@ -29,7 +29,6 @@ export default function EditarFilme({ logOut }) {
     const [imagem, setImagem] = useState("");
     const [orcamento, setOrcamento] = useState("");
 
-    // Agora vamos guardar os IDs numéricos!
     const [selecionados, setSelecionados] = useState({
         categorias: [], produtoras: [], diretores: [], atores: [], linguagens: [], paises: []
     });
@@ -44,7 +43,6 @@ export default function EditarFilme({ logOut }) {
             const endpoints = ["categorias", "produtoras", "diretores", "atores", "linguagens", "paises"];
             const novasListas = {};
 
-            // 1. Busca todas as listas de IDs do banco primeiro
             for (let ep of endpoints) {
                 try {
                     const res = await fetch(`http://localhost:8000/${ep}`); 
@@ -55,7 +53,6 @@ export default function EditarFilme({ logOut }) {
             }
             setDbListas(novasListas);
 
-            // 2. Carrega os dados do filme
             if (id) {
                 try {
                     const dadosFilme = await filmeID(id);
@@ -66,7 +63,6 @@ export default function EditarFilme({ logOut }) {
                     setImagem(dadosFilme.poster || dadosFilme.imagem || "");
                     setOrcamento(dadosFilme.orcamento || "");
 
-                    // Função inteligente para achar os IDs numéricos baseados nos nomes do filme
                     const extrairNome = (item) => {
                         let nome = typeof item === 'string' ? item : (item.valor || item.nome || '');
                         return nome.split('—')[0].trim().toLowerCase(); // Limpa o "— Não-binario" do back-end
@@ -114,7 +110,6 @@ export default function EditarFilme({ logOut }) {
 
         const token = localStorage.getItem("access_token");
 
-        // O Python espera apenas números inteiros nestes arrays
         const filmeAtualizado = {
             titulo,
             ano: parseInt(ano) || 2026,

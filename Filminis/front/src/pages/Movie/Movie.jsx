@@ -35,7 +35,6 @@ export default function Movie() {
 
                 setFilme(filmeEncontrado); 
                 
-                // Checa se já é favorito no localStorage
                 const favsSalvos = JSON.parse(localStorage.getItem("favoritos_cinelist")) || [];
                 const jaFavoritado = favsSalvos.some(f => String(f.id) === String(id));
                 setIsFavorito(jaFavoritado);
@@ -96,7 +95,6 @@ export default function Movie() {
         return <p className="status error">Nenhum filme para exibir.</p>;
     }
 
-    // Lógica super blindada para extrair categorias
     let listaCategorias = [];
     if (filme.categorias) {
         let dadosBrutos = filme.categorias;

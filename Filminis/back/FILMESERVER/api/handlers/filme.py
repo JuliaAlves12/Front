@@ -138,7 +138,6 @@ def post_Cadastrani(handler):
         handler._send_json({"error": "Token inválido ou expirado"}, 401)
         return
 
-    # FORÇA TUDO PARA ZERO: TODO MUNDO CAI NA FILA DE APROVAÇÃO
     flag = 0
 
     content_length = int(handler.headers['Content-Length'])
@@ -203,7 +202,6 @@ def post_Cadastrani(handler):
         flag=flag 
     )
 
-    # A RESPOSTA VEM PARA O FINAL: Só responde DEPOIS que o insertFilminhos rodou!
     handler._send_json({
         "id": resp.get("id") if resp else None,
         "aprovado": False,
