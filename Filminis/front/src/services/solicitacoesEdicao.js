@@ -1,7 +1,3 @@
-// Gerencia as "solicitações de edição" feitas por usuários comuns.
-// Como o back-end não tem fluxo de edição pendente (o PATCH /filme exige admin),
-// guardamos as solicitações no localStorage, no mesmo estilo dos favoritos.
-// O admin revê o "antes x depois" no painel e aprova (aí sim dá o PATCH real) ou recusa.
 
 const CHAVE = "solicitacoes_edicao_cinelist";
 
