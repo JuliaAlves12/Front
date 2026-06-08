@@ -56,7 +56,13 @@ cd back
 cd FILMESERVER
 ```
 
-Instale as dependências:
+Instale as dependências (via requirements):
+
+```bash
+pip install -r requirements.txt
+```
+
+Ou instale manualmente:
 
 ```bash
 pip install mysql-connector-python pyjwt
@@ -138,16 +144,19 @@ Para criar uma conta, utilize a opção **Cadastre-se** na tela inicial.
 - Visualizar seus favoritos
 - Cadastrar filmes
 - Enviar filmes para aprovação dos administradores
+- Solicitar edição de filmes (sujeita à aprovação do administrador)
 
 ### Administrador
 
 - Visualizar filmes
 - Acessar os detalhes dos filmes
 - Favoritar filmes
+- Visualizar seus favoritos
 - Cadastrar filmes
 - Editar filmes
 - Aprovar filmes enviados por usuários
 - Reprovar filmes enviados por usuários
+- Aprovar ou recusar solicitações de edição dos usuários
 - Excluir filmes
 
 
@@ -157,6 +166,7 @@ Para criar uma conta, utilize a opção **Cadastre-se** na tela inicial.
 - Cadastro de filmes
 - Listagem de filmes
 - Edição de filmes
+- Solicitação de edição de filmes (com comparação antes e depois)
 - Exclusão de filmes
 - Aprovação e reprovação de filmes
 - Sistema de favoritos
