@@ -14,7 +14,7 @@
   --txt-secundario: #A89BB8;
   
   --primary-hover: var(--brilhos);
-  --primary-transparente: rgba(157, 78, 221, 0.15);
+  --primary-transparente: #9d4edd26;
   
   --error: #ff4646;
   --erro-txt: var(--error);

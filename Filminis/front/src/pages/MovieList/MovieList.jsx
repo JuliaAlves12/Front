@@ -5,8 +5,6 @@ import NavBar from "../../../components/navBar/navBar";
 import Card from "../../../components/card/card";
 import Footer from "../../../components/footer/Footer";
 
-// O /listagem manda as categorias como lista de objetos {id, nome} (ou string JSON).
-// Esse helper normaliza tudo e devolve só os nomes dos gêneros.
 function extrairNomesCategorias(categorias) {
     if (!categorias) return [];
 

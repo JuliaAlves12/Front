@@ -116,7 +116,9 @@ export default function Movie() {
                             try {
                                 const parsed = JSON.parse(cat);
                                 return parsed.nome || parsed.valor || '';
-                            } catch { /* não era JSON, mantém o texto cru */ }
+                            } catch {
+                                return cat.trim();
+                            }
                         }
                         return cat.trim();
                     }

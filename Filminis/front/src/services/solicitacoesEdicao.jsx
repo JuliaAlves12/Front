@@ -1,4 +1,3 @@
-
 const CHAVE = "solicitacoes_edicao_cinelist";
 
 export function listarSolicitacoes() {

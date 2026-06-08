@@ -30,8 +30,7 @@ export default function Perfil({ logOut }) {
     useEffect(() => {
         if (token) {
             carregarDadosPerfil();
-            
-            // Carrega a lista de favoritos
+
             const favsSalvos = JSON.parse(localStorage.getItem("favoritos_cinelist")) || [];
             setFavoritos(favsSalvos);
         } else {
@@ -143,7 +142,6 @@ export default function Perfil({ logOut }) {
                             </div>
                         </div>
 
-                        {/* SEÇÃO DE FAVORITOS */}
                         <div className="secao-favoritos">
                             <h3>Meus Filmes Favoritos</h3>
                             {favoritos.length > 0 ? (

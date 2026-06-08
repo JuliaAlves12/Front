@@ -65,8 +65,6 @@ export default function AdminPainel({ logOut }) {
         }
     };
 
-    // ---- Solicitações de edição (antes x depois) ----
-
     const formatarNomeCompleto = (item) =>
         item.sobrenome ? `${item.nome} ${item.sobrenome}`.trim() : (item.nome || "").trim();
 

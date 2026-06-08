@@ -208,7 +208,6 @@
     color: var(--txt-principal);
 }
 
-/* Destaca as linhas que realmente mudaram */
 .comparacao-linha.mudou {
     background-color: var(--primary-transparente);
 }

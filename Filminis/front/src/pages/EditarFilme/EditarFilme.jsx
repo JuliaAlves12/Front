@@ -34,8 +34,6 @@ export default function EditarFilme({ logOut }) {
         categorias: [], produtoras: [], diretores: [], atores: [], linguagens: [], paises: []
     });
 
-    // Guarda os valores originais do filme (o "antes"), usado quando um usuário
-    // comum solicita edição: o admin compara antes x depois no painel.
     const [dadosOriginais, setDadosOriginais] = useState(null);
 
     const formatarNomeCompleto = (item) => {
@@ -65,7 +63,7 @@ export default function EditarFilme({ logOut }) {
 
                     const extrairNome = (item) => {
                         let nome = typeof item === 'string' ? item : (item.valor || item.nome || '');
-                        return nome.split('—')[0].trim().toLowerCase(); // Limpa o "— Não-binario" do back-end
+                        return nome.split('—')[0].trim().toLowerCase();
                     };
 
                     const mapToIds = (listaFilme, listaDb, isPerson = false) => {
@@ -141,8 +139,6 @@ export default function EditarFilme({ logOut }) {
             ...relacionais
         };
 
-        // Usuário comum não pode dar PATCH (o back retorna 403). Então a alteração
-        // vira uma solicitação guardada no localStorage para o admin aprovar.
         if (!eAdmin) {
             salvarSolicitacao({
                 idSolicitacao: Date.now(),

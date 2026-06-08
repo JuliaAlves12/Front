@@ -15,7 +15,8 @@ export default function App() {
   const [userRole, setUserRole] = useState(localStorage.getItem("user_role")); 
 
   const logOut = () => {
-    localStorage.clear();
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user_role");
     setToken(null);
     setUserRole(null);
     window.location.href = "/login";
