@@ -62,7 +62,7 @@
 
 .botao-contraste {
     background-color: var(--primary);
-    color: var(--bg);
+    color: var(--txt-principal);
 }
 
 .botao-contraste:hover {
@@ -79,13 +79,13 @@
 }
 
 .perfil-admin {
-    background-color: #5a189a;
+    background-color: #A657E6;
     color: #ffffff;
 }
 
 .perfil-admin:hover {
-    background-color: #7b2cbf;
-    box-shadow: 0 4px 12px rgba(123, 44, 191, 0.4);
+    background-color: #B57BFF;
+    box-shadow: 0 4px 12px rgba(166, 87, 230, 0.4);
     transform: translateY(-2px);
 }
 
@@ -98,7 +98,7 @@
 
 .perfil-user:hover {
     background-color: var(--primary);
-    color: var(--bg);
+    color: var(--txt-principal);
     box-shadow: 0 4px 12px var(--sombra-foco);
     transform: translateY(-2px);
 }

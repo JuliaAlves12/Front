@@ -96,7 +96,7 @@
 }
 
 .botao-aprovar {
-    background-color: #2e7d32;
+    background-color: #119052;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -108,13 +108,13 @@
 }
 
 .botao-aprovar:hover {
-    background-color: #1b5e20;
+    background-color: #0d6d3f;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
 }
 
 .botao-reprovar {
-    background-color: #c62828;
+    background-color: #DF4747;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -126,7 +126,7 @@
 }
 
 .botao-reprovar:hover {
-    background-color: #b71c1c;
+    background-color: #c53636;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(198, 40, 40, 0.3);
 }
