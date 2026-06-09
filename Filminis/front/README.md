@@ -1,9 +1,6 @@
-# 🎬 Filminis
+# Filminis
 
 Sistema de gerenciamento de filmes desenvolvido com React, Python e MySQL.
-
-O projeto permite visualizar, cadastrar, editar, excluir e favoritar filmes, além de contar com controle de acesso para usuários comuns e administradores.
-
 
 ## Tecnologias Utilizadas
 
@@ -13,43 +10,21 @@ O projeto permite visualizar, cadastrar, editar, excluir e favoritar filmes, al�
 - Python
 - MySQL
 
-
-## Pré-requisitos
-
-Para executar o projeto, é necessário ter instalado:
-
-- Node.js
-- Python 3
-- MySQL Server
-- MySQL Workbench
-
-
 ## Configuração do Banco de Dados
 
-1. Abra o MySQL Workbench.
-2. Conecte-se utilizando:
+Antes de iniciar o sistema, execute o script SQL localizado em:
 
 ```text
-Usuário: root
-Senha: root
+back/bcd_novo_julia.sql
 ```
 
-3. Abra o arquivo DDL fornecido pelo BackEnd.
-4. Execute o script para criar o banco de dados e as tabelas.
+Esse arquivo contém toda a estrutura necessária para criação do banco de dados e das tabelas utilizadas pela aplicação.
 
-O arquivo `infra/database.py` está configurado para utilizar:
-
-```text
-Usuário: root
-Senha: root
-```
-
-Caso utilize outras credenciais, será necessário alterar esse arquivo.
-
+Após executar o script no MySQL Workbench, verifique se as credenciais configuradas no arquivo `infra/database.py` correspondem às credenciais do seu ambiente.
 
 ## Executando o Back-end
 
-Abra um terminal na raiz do projeto e execute:
+Acesse a pasta do servidor:
 
 ```bash
 cd back
@@ -68,16 +43,15 @@ Inicie o servidor:
 py server.py
 ```
 
-Se tudo estiver correto, o servidor será iniciado em:
+O servidor será iniciado em:
 
 ```text
 http://localhost:8000
 ```
 
-
 ## Executando o Front-end
 
-Abra outro terminal e execute:
+Acesse a pasta do projeto:
 
 ```bash
 cd front
@@ -89,68 +63,52 @@ Instale as dependências:
 npm install
 ```
 
-Inicie o projeto:
+Inicie a aplicação:
 
 ```bash
 npm run dev
 ```
 
-O terminal exibirá o endereço para acesso da aplicação.
+O terminal exibirá o endereço para acesso ao sistema.
 
-Geralmente:
+## Usuários para Teste
 
-```text
-http://localhost:5173
-```
-
-
-## Usuário Administrador
-
-O banco já possui um administrador cadastrado para testes.
-
-**E-mail**
+### Administrador
 
 ```text
-admin@example.com
+E-mail: admin@example.com
+Senha: admin
 ```
 
-**Senha**
+### Usuário
 
 ```text
-admin
+E-mail: usuario@mail.com
+Senha: 123456
 ```
 
-
-## Cadastro de Usuários
-
-Usuários comuns não vêm cadastrados no banco de dados.
-
-Para criar uma conta, utilize a opção **Cadastre-se** na tela inicial.
-
+Também é possível criar uma nova conta pela tela de cadastro.
 
 ## Permissões
 
-### Usuário Comum
+### Usuário
 
 - Visualizar filmes
-- Acessar os detalhes dos filmes
+- Acessar detalhes dos filmes
 - Favoritar filmes
-- Visualizar seus favoritos
+- Visualizar favoritos
 - Cadastrar filmes
-- Enviar filmes para aprovação dos administradores
+- Solicitar edições
 
 ### Administrador
 
 - Visualizar filmes
-- Acessar os detalhes dos filmes
+- Acessar detalhes dos filmes
 - Favoritar filmes
 - Cadastrar filmes
 - Editar filmes
-- Aprovar filmes enviados por usuários
-- Reprovar filmes enviados por usuários
+- Aprovar ou reprovar conteúdos enviados por usuários
 - Excluir filmes
-
-
 
 ## Funcionalidades
 
@@ -158,8 +116,8 @@ Para criar uma conta, utilize a opção **Cadastre-se** na tela inicial.
 - Listagem de filmes
 - Edição de filmes
 - Exclusão de filmes
-- Aprovação e reprovação de filmes
 - Sistema de favoritos
+- Aprovação e reprovação de conteúdos
 - Busca por título
 - Busca por ano
 - Busca por categoria
@@ -167,9 +125,8 @@ Para criar uma conta, utilize a opção **Cadastre-se** na tela inicial.
 - Busca por atores
 - Modo alto contraste
 
-
 ## Observações
 
-- O banco de dados deve ser criado antes de iniciar a aplicação.
+- Execute o arquivo `back/bcd_novo_julia.sql` antes de iniciar o sistema.
 - O Back-end deve estar em execução para que o Front-end funcione corretamente.
-- É necessário executar `pip install` no Back-end e `npm install` no Front-end antes da primeira execução.
+- Execute `pip install mysql-connector-python pyjwt` no Back-end e `npm install` no Front-end antes da primeira execução.
