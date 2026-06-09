@@ -104,12 +104,7 @@ Também é possível criar uma nova conta pela tela de cadastro.
 - Favoritar filmes
 - Visualizar favoritos
 - Cadastrar filmes
-<<<<<<< HEAD
 - Solicitar edições
-=======
-- Enviar filmes para aprovação dos administradores
-- Solicitar edição de filmes (sujeita à aprovação do administrador)
->>>>>>> 69dbf6af767f750e4d78b741429fa378e42254ab
 
 ### Administrador
 
@@ -119,13 +114,7 @@ Também é possível criar uma nova conta pela tela de cadastro.
 - Visualizar seus favoritos
 - Cadastrar filmes
 - Editar filmes
-<<<<<<< HEAD
 - Aprovar ou reprovar conteúdos enviados por usuários
-=======
-- Aprovar filmes enviados por usuários
-- Reprovar filmes enviados por usuários
-- Aprovar ou recusar solicitações de edição dos usuários
->>>>>>> 69dbf6af767f750e4d78b741429fa378e42254ab
 - Excluir filmes
 
 ## Funcionalidades
