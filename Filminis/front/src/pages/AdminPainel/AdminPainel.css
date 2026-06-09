@@ -25,7 +25,7 @@
 }
 
 .topo-admin p {
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
 }
 
 .sem-pendentes {
@@ -71,6 +71,7 @@
 
 .info-pendente h3 {
     color: var(--txt-principal);
+    font-weight: 900; 
     font-size: 22px;
     margin-bottom: 4px;
 }
@@ -83,7 +84,7 @@
 }
 
 .sinopse-pendente {
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     font-size: 14px;
     line-height: 1.6;
     margin-bottom: 18px;
@@ -169,6 +170,7 @@
 
 .card-edicao h3 {
     color: var(--txt-principal);
+    font-weight: 900;
     font-size: 22px;
     margin-bottom: 4px;
 }
@@ -193,13 +195,13 @@
     font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
 }
 
 .comparacao-linha {
     border-top: 1px solid var(--superficie-cards-border);
     font-size: 14px;
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     word-break: break-word;
 }
 

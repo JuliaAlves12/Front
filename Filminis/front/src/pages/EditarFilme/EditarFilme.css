@@ -31,7 +31,7 @@
 }
 
 .topo-form p {
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     margin: 0;
 }
 
@@ -65,7 +65,7 @@
 
 .aviso-ctrl {
     font-size: 13px;
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     margin-top: -10px;
     margin-bottom: 10px;
 }

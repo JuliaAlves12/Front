@@ -17,7 +17,7 @@
 }
 
 .footer-content p {
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     font-size: 14px;
     margin: 0;
 }

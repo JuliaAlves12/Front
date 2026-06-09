@@ -101,7 +101,8 @@
 .grupo-filtro label {
     font-size: 12px;
     font-weight: bold;
-    color: var(--txt-secundario);
+    font-weight: 700;
+    color: var(--txt-principal);
     text-transform: uppercase;
 }
 
@@ -183,6 +184,7 @@
 .filme-info h3 {
     font-size: 16px;
     color: var(--txt-principal);
+    font-weight: 900; 
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -190,7 +192,7 @@
 }
 
 .filme-info p {
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     font-size: 13px;
     margin: 0;
 }
@@ -203,7 +205,7 @@
 
 .card-genero-tag {
     background-color: var(--primary-transparente);
-    color: var(--txt-destacado);
+    color: var(--txt-principal);
     font-size: 11px;
     font-weight: bold;
     padding: 3px 8px;

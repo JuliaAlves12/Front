@@ -73,8 +73,8 @@
 
 .tag-info {
     background-color: transparent;
-    border: 1px solid var(--txt-secundario);
-    color: var(--txt-secundario);
+    border: 1px solid var(--txt-principal);
+    color: var(--txt-principal);
     padding: 4px 12px;
     border-radius: 20px;
     font-weight: 600;
@@ -86,6 +86,7 @@
     font-size: 20px;
     margin-bottom: 12px;
     color: var(--txt-principal);
+    font-weight: 900; 
 }
 
 .lista-categorias {
@@ -99,7 +100,7 @@
 
 .tag-categoria {
     background-color: var(--primary);
-    color: var(--bg);
+    color: var(--txt-principal);
     padding: 6px 14px;
     border-radius: 8px;
     font-size: 14px;
@@ -109,7 +110,7 @@
 .sinopse-box p {
     line-height: 1.6;
     font-size: 16px;
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     text-align: justify;
     margin: 0;
 }
@@ -205,8 +206,8 @@
     display: inline-flex;
     align-items: center;
     background-color: transparent;
-    color: #DF4747;
-    border: 2px solid #DF4747;
+    color: #ff4d4d;
+    border: 2px solid #ff4d4d;
     padding: 10px 24px;
     border-radius: 12px;
     font-weight: bold;

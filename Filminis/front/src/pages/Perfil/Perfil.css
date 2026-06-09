@@ -83,14 +83,13 @@
 
 .tag-admin {
     background-color: #5a189a;
-    color: #ffffff;
+    color: var(--txt-principal); 
 }
 
 .tag-user {
     background-color: var(--primary);
-    color: var(--bg);
+    color: var(--txt-principal); 
 }
-
 .perfil-info {
     flex: 1;
     display: flex;
@@ -125,7 +124,7 @@
 }
 
 .info-linha span {
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
@@ -215,7 +214,7 @@
 }
 
 .texto-vazio {
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     font-size: 16px;
     text-align: center;
     padding: 20px 0;
@@ -259,6 +258,7 @@
 
 .info-card-fav h4 {
     color: var(--txt-principal);
+    font-weight: 900; 
     font-size: 14px;
     margin: 0;
     white-space: nowrap;
@@ -267,7 +267,7 @@
 }
 
 .info-card-fav span {
-    color: var(--txt-secundario);
+    color: var(--txt-principal);
     font-size: 12px;
     font-weight: bold;
 }
